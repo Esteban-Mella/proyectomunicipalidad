@@ -1,3 +1,6 @@
+@php
+    use Barryvdh\DomPDF\Facade\Pdf;/* libreria Dompdf retirar si se utiliza otro controlador para generar documentos */
+@endphp
 
 <head>
     <meta charset="UTF-8">

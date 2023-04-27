@@ -23,3 +23,5 @@ route::view('/consultaEquipos','consultaEquipos')->name('consultaEquipos');
 route::view('/historialEntregas','historialEntregas')->name('historialEntregas');
 route::view('/historialRetorno','historialRetorno')->name('historialRetorno');
 
+route::get('/pdf','PDFController@PDF')->name('descargarpdf');
+

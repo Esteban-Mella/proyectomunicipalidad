@@ -12,7 +12,7 @@
         <div class="col">
             <h3>Busqueda</h3>
             <div class="form-outline">
-                <input type="search" id="form1" class="form-control" placeholder="busqueda de elemento" aria-label="Search" />
+                <input type="search" id="form1" class="form-control" placeholder="busqueda de Equipo" aria-label="Search" />
             </div>
         </div>
     </div>

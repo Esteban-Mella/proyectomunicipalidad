@@ -31,7 +31,7 @@
                 <h3>Busqueda de Equipos</h3>
 
                 <div class="form-outline">
-                    <input type="search" id="form1" class="form-control" placeholder="busqueda de elemento" aria-label="Search" />
+                    <input type="search" id="form1" class="form-control" placeholder="busqueda de Equipos" aria-label="Search" />
                 </div>
             </div>
 
@@ -123,10 +123,11 @@
     </div>
 
     <div class="d-flex ml-auto justify-content-end pt-3">
-        <button class="btn btn-success rounded p-2 px-2">
+        <a class="btn btn-success rounded p-2 px-2" href="{{route('descargarpdf')}}">
             <i class="bi bi-journal-check"></i>
             Ingresar Solicitud
-        </button>
+        </a>
+
     </div>
 </section>
 </x-layouts>

@@ -44,35 +44,49 @@
 
         <div class="row border rounded-3">
             <div class="col">
-                {{-- tabla para generar lista --}}
-                <h3 class="mb-3 mt-3">Equipos para asignar</h3>
-                <table class="table table-striped border rounded-3">
-                    <thead>
-                    <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">N° de Inventario</th>
-                        <th scope="col">N° Activo fijo</th>
-                        <th scope="col">N° serie</th>
-                        <th scope="col">Nombre Equipo</th>
-                        <th scope="col">Asignado</th>
-                        <th scope="col">operativo</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>DTI-2020-006</td>
-                        <td>1-002-002-004-001</td>
-                        <td>dfs-awas5-4554a-sqds</td>
-                        <td>Impresora</td>
-                        <td>En Bodega</td>
-                        <td>Si</td>
-                        <td><a class="bi bi-file-earmark-x-fill h1 text-danger" href="#"></a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                {{-- tabla para generar lista recuperando equipos que seran entregados   --}}
+                <form action="{{route('generarFormEntrega')}}" method="POST">
+                    @csrf {{-- importante añadir esto para evitar errores de ataques csrf --}}
+
+                    <h3 name="title" class="mb-3 mt-3">Equipos para asignar</h3>
+
+                    <table class="table table-striped border rounded-3">
+                        <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">N° de Inventario</th>
+                            <th scope="col">N° Activo fijo</th>
+                            <th scope="col">N° serie</th>
+                            <th scope="col">Nombre Equipo</th>
+                            <th scope="col">Asignado</th>
+                            <th scope="col">operativo</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><input class="form-control" type="text" name="codigo[]" value='1' readonly></td>
+                            <td><input class="form-control" type="text" name="codigo[]" value='DTI-2020-006' readonly></td>
+                            <td><input class="form-control" type="text" name="codigo[]" value='dfs-awas5-4554a-sqds' readonly></td>
+                            <td><input class="form-control" type="text" name="codigo[]" value='Impresora' readonly></td>
+                            <td><input class="form-control" type="text" name="codigo[]" value='En Bodega' readonly></td>
+                            <td><input class="form-control" type="text" name="codigo[]" value='Si' readonly></td>
+                            <td><a class="bi bi-file-earmark-x-fill h1 text-danger" href="#"></a></td>
+                        </tr>
+                        <tr>
+                            <td><input class="form-control" type="text" name="codigo[]" value='1' readonly></td>
+                            <td><input class="form-control" type="text" name="codigo[]" value='DTI-2020-006' readonly></td>
+                            <td><input class="form-control" type="text" name="codigo[]" value='dfs-awas5-4554a-sqds' readonly></td>
+                            <td><input class="form-control" type="text" name="codigo[]" value='Impresora' readonly></td>
+                            <td><input class="form-control" type="text" name="codigo[]" value='En Bodega' readonly></td>
+                            <td><input class="form-control" type="text" name="codigo[]" value='Si' readonly></td>
+                            <td><a class="bi bi-file-earmark-x-fill h1 text-danger" href="#"></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </form>
 
             {{-- tabla para buscar equipos --}}
 
@@ -127,7 +141,7 @@
             <i class="bi bi-journal-check"></i>
             Ingresar Solicitud
         </a>
-
+        {{-- {{route('descargarpdf')}} --}}
     </div>
 </section>
 </x-layouts>

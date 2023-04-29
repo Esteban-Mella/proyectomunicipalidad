@@ -9,6 +9,6 @@ class PDFController extends Controller
 {
     public function PDF(){
         $pdf =\PDF::loadView('/pdf.PDFEntregaEquipos');
-        return $pdf->download('documentoPrueba.pdf');
+        return $pdf->download('Certificado Entrega '.now().'.pdf');
     }
 }

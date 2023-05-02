@@ -6,7 +6,7 @@
 <section class="mx-3 mb-3 p-3 border rounded-3">
     <H3>Formulario para Retorno de Equipos</H3>
     <div class="d-flex ml-auto justify-content-end">
-        <a class="btn btn-secondary rounded p-2 px-2" href="{{route('historialEntregas')}}">
+        <a class="btn btn-secondary rounded p-2 px-2" href="{{route('historialRetorno')}}">
             <i class="bi bi-clock-history"></i>
             Historial
         </a>
@@ -144,16 +144,17 @@
     $(document).ready(function() {
     $('#busquedaPersonal').on('input', function() {
         console.log(jQuery);
-    var input = $(this).val().toLowerCase();
-    $('#usuarioSelected option').each(function() {
-        var texto = $(this).text().toLowerCase();
-        if (texto.indexOf(input) !== -1) {
-        $(this).show();
-        $(this).prop('selected', true);
-        } else {
-        $(this).hide();
-        }
-    });
+        var input = $(this).val().toLowerCase();
+
+        $('#usuarioSelected option').each(function() {
+            var texto = $(this).text().toLowerCase();
+            if (texto.indexOf(input) !== -1) {
+            $(this).show();
+            $(this).prop('selected', true);
+            } else {
+            $(this).hide();
+            }
+        });
 
     });
 });
@@ -163,17 +164,17 @@
 <script>
 
     $(document).ready(function() {
-    $('#busquedaEquipos').on('input', function() {
-        var buscarText = $(this).val().toLowerCase();
-        $('#formulario-datos tbody tr').filter(function() {
-            var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7)').text().toLowerCase();
-                return tdText.indexOf(buscarText) === -1;
-            }).hide();
-        $('#formulario-datos tbody tr').filter(function() {
-            var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7)').text().toLowerCase();
-            return tdText.indexOf(buscarText) !== -1;
-        }).show();
-    });
+        $('#busquedaEquipos').on('input', function() {
+            var buscarText = $(this).val().toLowerCase();
+            $('#formulario-datos tbody tr').filter(function() {
+                var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7)').text().toLowerCase();
+                    return tdText.indexOf(buscarText) === -1;
+                }).hide();
+            $('#formulario-datos tbody tr').filter(function() {
+                var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7)').text().toLowerCase();
+                return tdText.indexOf(buscarText) !== -1;
+            }).show();
+        });
     });
 
 </script>
@@ -224,10 +225,12 @@
     /* funcion para envio de datos desde la tabla html y el campo select de personal a dompdf */
 
     $('#btn-enviar-datos').click(function() {
+
     var usuarioPrestamo = $('#usuarioSelected option:selected').text();
     var tipoForm='Retorno';
     var informacion=[usuarioPrestamo,tipoForm];
     var datosTabla = [];
+
     $('#tabla-datos tbody tr').each(function() {
         var fila = [];
     $(this).find('td').each(function() {

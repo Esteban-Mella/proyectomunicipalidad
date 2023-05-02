@@ -13,7 +13,7 @@
         <div class="col">
             <h3>Busqueda</h3>
             <div class="form-outline">
-                <input type="search" id="form1" class="form-control" placeholder="busqueda de elemento" aria-label="Search" />
+                <input type="text" id="busquedaEquipos" class="form-control" placeholder="busqueda en historial de entregas" />
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
 
      <div class="col" >
         <h3 class="mb-3 mt-3">Busqueda en Historial</h3>
-        <table class="table table-striped border rounded-4">
+        <table id="historialEquipos" class="table table-striped border rounded-4">
 
             <thead>
             <tr >
@@ -63,5 +63,24 @@
 </div>
 
 </section>
+
+
+<script>
+    /* busqueda de equipos en la tabla */
+    $(document).ready(function() {
+    $('#busquedaEquipos').on('input', function() {
+        var buscarText = $(this).val().toLowerCase();
+        $('#historialEquipos tbody tr').filter(function() {
+            var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5)').text().toLowerCase();
+                return tdText.indexOf(buscarText) === -1;
+            }).hide();
+        $('#historialEquipos tbody tr').filter(function() {
+            var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5)').text().toLowerCase();
+            return tdText.indexOf(buscarText) !== -1;
+        }).show();
+    });
+    });
+
+</script>
 
 </x-layouts>

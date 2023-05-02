@@ -182,9 +182,6 @@
 
 </script>
 
-
-
-
 <script>
     /* obtencion de datos de tabla dinamica con equipos para entregar al usuario */
 

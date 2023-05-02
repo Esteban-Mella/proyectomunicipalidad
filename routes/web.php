@@ -1,18 +1,8 @@
 <?php
 
-use App\Http\Controllers\tablaEntregaController;
+use App\Http\Controllers\tablaEntregaController;/* no utilizado momentaneamente  */
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('entregaEquipos');
@@ -25,5 +15,5 @@ route::view('/historialEntregas','historialEntregas')->name('historialEntregas')
 route::view('/historialRetorno','historialRetorno')->name('historialRetorno');
 
 route::post('/pdf','PDFController@PDF')->name('descargarpdf');
-route::get('/pdf','PDFController@PDF')->name('descargarpdf');
+/* route::get('/pdf','PDFController@PDF')->name('descargarpdf'); uso temporal en face de pruebas */
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\tablaEntregaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,5 +24,6 @@ route::view('/consultaEquipos','consultaEquipos')->name('consultaEquipos');
 route::view('/historialEntregas','historialEntregas')->name('historialEntregas');
 route::view('/historialRetorno','historialRetorno')->name('historialRetorno');
 
+route::post('/pdf','PDFController@PDF')->name('descargarpdf');
 route::get('/pdf','PDFController@PDF')->name('descargarpdf');
 

@@ -146,7 +146,7 @@
     <br>
 
     <div class="center">
-        <h1><u>Certificado de entrega</u></h1>
+        <h1><u>Certificado de {{$informacion[1]}}</u></h1>
     </div>
     <br>
     <br>
@@ -156,7 +156,7 @@
 
         <div class="texto">
 
-            <p>Se hace entrega del siguiente equipamiento computacional para su respectivo uso a {{$usuarioPrestamo}}</p>
+            <p>Se hace entrega del siguiente equipamiento computacional para su respectivo uso a {{$informacion[0]}}</p>
 
         </div>
         <br>

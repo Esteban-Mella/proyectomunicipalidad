@@ -11,6 +11,7 @@
             <input type="search" id="form1" class="form-control" placeholder="busqueda de equipos" aria-label="Search" />
         </div>
     </div>
+{{-- fin barra de busqueda --}}
 
     <div class="col" >
         <h3 class="mb-3 mt-3">Busqueda de equipos</h3>
@@ -79,53 +80,9 @@
             </tbody>
         </table>
 
-        <label for="buscar">Buscar:</label>
-        <input type="text" id="buscar">
 
-        <table id="tabla">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>Edad</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>John</td>
-              <td>Doe</td>
-              <td>25</td>
-            </tr>
-            <tr>
-              <td>Jane</td>
-              <td>Doe</td>
-              <td>30</td>
-            </tr>
-            <tr>
-              <td>Bob</td>
-              <td>Smith</td>
-              <td>35</td>
-            </tr>
-          </tbody>
-        </table>
 
-        <script>
 
-$(document).ready(function() {
-  $('#buscar').on('input', function() {
-    var buscarText = $(this).val().toLowerCase();
-    $('#tabla tbody tr').filter(function() {
-      var tdText = $(this).find('td:nth-child(1), td:nth-child(2)').text().toLowerCase();
-      return tdText.indexOf(buscarText) === -1;
-    }).hide();
-    $('#tabla tbody tr').filter(function() {
-      var tdText = $(this).find('td:nth-child(1), td:nth-child(2)').text().toLowerCase();
-      return tdText.indexOf(buscarText) !== -1;
-    }).show();
-  });
-});
-
-        </script>
 
 </x-layouts>
 

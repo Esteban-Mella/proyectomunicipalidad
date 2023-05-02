@@ -2,6 +2,7 @@
     title="Entrega Equipos"
 >
 
+
 {{-- inicio barra de busqueda --}}
 <section class="mx-3 mb-3 p-3 border rounded-3">
     <H3>Formulario para entrega de Equipos</H3>
@@ -102,7 +103,7 @@
                             <td>Impresora</td>
                             <td>LG</td>
                             <td>En Bodega</td>
-                            <td>Si</td>
+                            <td>NO</td>
                             <td>{{-- <button type="button" class="btn btn-success">Añadir</button> --}}
                                 <a id="agregar-dato" class="bi bi-file-earmark-plus-fill h1 text-success enviar-dato" href="" onclick="obtenerDatos(this)"></a>
                             </td>
@@ -110,12 +111,12 @@
                         <tr>
                             <th scope="row">1</th>
                             <td>DTn-2020-006</td>
-                            <td>1-002-002-004-001</td>
-                            <td>dfs-awas5-4554a-sqds</td>
-                            <td>Impresora</td>
-                            <td>LG</td>
-                            <td>En Bodega</td>
-                            <td>Si</td>
+                            <td>12-002-002-004-001</td>
+                            <td>dfz-awas5-4554a-sqds</td>
+                            <td>Computador</td>
+                            <td>Samsung</td>
+                            <td>Juan Maestro</td>
+                            <td>NO</td>
                             <td>
                                 <a id="agregar-dato" class="bi bi-file-earmark-plus-fill h1 text-success enviar-dato" href="" onclick="obtenerDatos(this)"></a>
 
@@ -139,7 +140,11 @@
 
 
 </section>
+
+{{-- Area de scripts para funcionalidad de pagina --}}
+
 <script>
+    /* busqueda de personal para seleccionar a que usuario se le esta entregando un equipo */
     $(document).ready(function() {
     $('#busquedaPersonal').on('input', function() {
         console.log(jQuery);
@@ -160,16 +165,16 @@
 </script>
 
 <script>
-
+    /* busqueda de equipos en la tabla de equipos */
     $(document).ready(function() {
     $('#busquedaEquipos').on('input', function() {
         var buscarText = $(this).val().toLowerCase();
         $('#formulario-datos tbody tr').filter(function() {
-            var tdText = $(this).find('td:nth-child(1), td:nth-child(2)').text().toLowerCase();
+            var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7)').text().toLowerCase();
                 return tdText.indexOf(buscarText) === -1;
             }).hide();
         $('#formulario-datos tbody tr').filter(function() {
-            var tdText = $(this).find('td:nth-child(1), td:nth-child(2)').text().toLowerCase();
+            var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7)').text().toLowerCase();
             return tdText.indexOf(buscarText) !== -1;
         }).show();
     });
@@ -178,9 +183,11 @@
 </script>
 
 
-{{-- Area de scripts para funcionalidad de pagina --}}
+
 
 <script>
+    /* obtencion de datos de tabla dinamica con equipos para entregar al usuario */
+
     $.ajaxSetup({/* solucion error 419 controlador a form por ajax */
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -224,7 +231,8 @@
 
     $('#btn-enviar-datos').click(function() {
     var usuarioPrestamo = $('#usuarioSelected option:selected').text();
-
+    var tipoForm='Entrega';
+    var informacion=[usuarioPrestamo, tipoForm];
     var datosTabla = [];
     $('#tabla-datos tbody tr').each(function() {
         var fila = [];
@@ -241,7 +249,7 @@
             data: {
                 "_token": "{{ csrf_token() }}",
                 "datos": datosTabla,
-                "usuarioPrestamo": usuarioPrestamo
+                "informacion": informacion
             },
             xhrFields: {
             responseType: 'blob'
@@ -253,10 +261,23 @@
                 link.href = window.URL.createObjectURL(blob);
                 link.download = 'Certificado de Entrega '+Date()+'.pdf';
                 link.click();
+
+                Swal.fire({
+                    title: 'Formulario',
+                    text: 'Formulario Generado correctamente!',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                });
+
             }
         });
     }else{
-        console.log('Error faltan campos');
+        Swal.fire({
+                    title: 'Error!',
+                    text: 'Revise que todos los campos se encuentren completos!',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
     }
 });
 

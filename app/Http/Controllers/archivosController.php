@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class tablaEntregaController extends Controller
+class archivosController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -12,10 +12,8 @@ class tablaEntregaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function ObtenerEquipos(Request $request)
+    public function archivosHistorialEntrega(Request $request)
     {
 
     }
-
-
 }

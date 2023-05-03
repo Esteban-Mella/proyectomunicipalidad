@@ -19,11 +19,11 @@ class equiposController extends Controller
 
         return view('entregaEquipos', ['equipos'=>$equipos], ['usuarios'=>$usuarios]);
     }
+
     public function recuperarEquiposretorno(Request $request)
     {
         $usuarios = DB::table('usuarios')->get();
         $equipos = DB::table('equipos')->paginate(10);
-
-        return view('entregaEquipos', ['equipos'=>$equipos], ['usuarios'=>$usuarios]);
+        return view('retornoEquipos', ['equipos'=>$equipos], ['usuarios'=>$usuarios]);
     }
 }

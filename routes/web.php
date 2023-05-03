@@ -10,14 +10,16 @@ Route::get('/', function () {
 });
 
 /* route::view('/entregaEquipos','entregaEquipos')->name('entregaEquipos'); */
-route::view('/retornoEquipos','retornoEquipos')->name('retornoEquipos');
+/* route::view('/retornoEquipos','retornoEquipos')->name('retornoEquipos'); */
 route::view('/consultaEquipos','consultaEquipos')->name('consultaEquipos');
 route::view('/historialEntregas','historialEntregas')->name('historialEntregas');
 route::view('/historialRetorno','historialRetorno')->name('historialRetorno');
 
-route::post('/pdf','PDFController@PDF')->name('descargarpdf');
+route::any('/pdf','PDFController@PDF')->name('descargarpdf');
+
 
 route::get('/entregaEquipos',[equiposController::class,'recuperarEquiposentrega'])->name('entregaEquipos');
+route::get('/retornoEquipos',[equiposController::class,'recuperarEquiposretorno'])->name('retornoEquipos');
 
 /* route::get('/pdf','PDFController@PDF')->name('descargarpdf'); uso temporal en face de pruebas */
 

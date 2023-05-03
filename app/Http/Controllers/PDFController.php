@@ -4,21 +4,28 @@ namespace App\Http\Controllers;
 
 use Carbon\Traits\ToStringFormat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class PDFController extends Controller
 {
     public function PDF(Request $request){
-        // Obtener los datos de la tabla enviados por AJAX
         $datosTabla = $request->input('datos');
         $informacion = $request->input('informacion');
 
+        $nombreArchivo ='pdf-'.$informacion[1].'-'.date("d M j G-i-s T Y").'.pdf';
+        $rutaGuardado='app/public/documentos/pdf';
 
-        // Generar el PDF usando la vista y los datos
         $pdf = PDF::loadView('pdf.PDFEntregaEquipos', ['datosTabla' => $datosTabla], ['informacion' => $informacion]);
 
-        // Descargar el PDF generado
-        return $pdf->stream('miPDF.pdf');
+        if($informacion[1]=='Entrega'){
+            Storage::disk('cargaEntrega')->put($nombreArchivo, $pdf->output());
+        }else{
+            Storage::disk('cargaRetorno')->put($nombreArchivo, $pdf->output());
+        }
+
+
+        return $pdf->stream('archivo.pdf');
     }
 }

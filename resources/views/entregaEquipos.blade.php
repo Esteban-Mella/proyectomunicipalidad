@@ -23,9 +23,10 @@
 
                 <select id="usuarioSelected" class="form-select mb-3">
                     <option value="">Busqueda de personal</option>
-                    <option value="1">Juan Maestro</option>
-                    <option value="2">Pedro Juan</option>
-                    <option value="3">Diego Roberto</option>
+                    @foreach ($usuarios as $usuario )
+                    <option value="{{$usuario->id}}">{{$usuario->nombre}} {{$usuario->apellido}}</option>
+                    @endforeach
+
                   </select>
             </div>
 
@@ -58,7 +59,7 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">N° de Inventario</th>
-                            <th scope="col">N° Activo fijo</th>
+                            <th class="min-vw-25" scope="col">N° Activo fijo</th>
                             <th scope="col">N° serie</th>
                             <th scope="col">Nombre Equipo</th>
                             <th scope="col">Marca Equipo</th>
@@ -77,6 +78,7 @@
 
             {{-- tabla para buscar equipos --}}
 
+
             <div class="col">
                 <h3 class="mb-3 mt-3">Busqueda de equipos</h3>
                 <table id="formulario-datos" class="formulario-datos table table-striped border rounded-4">
@@ -84,7 +86,7 @@
                     <thead>
                     <tr>
                         <th scope="col">id</th>
-                        <th scope="col">N° de Inventario</th>
+                        <th class="test" scope="col">N° de Inventario</th>
                         <th scope="col">N° Activo fijo</th>
                         <th scope="col">N° de serie</th>
                         <th scope="col">Nombre Equipo</th>
@@ -95,36 +97,31 @@
                     </tr>
                     </thead>
                     <tbody>
+
+                        @foreach ($equipos as $equipo)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>DTI-2020-006</td>
-                            <td>1-002-002-004-001</td>
-                            <td>dfs-awas5-4554a-sqds</td>
-                            <td>Impresora</td>
-                            <td>LG</td>
-                            <td>En Bodega</td>
-                            <td>NO</td>
+                            <th scope="row">{{$equipo->id}}</th>
+                            <td>{{$equipo->nro_inventario}}</td>
+                            <td>{{$equipo->nro_activofijo}}</td>
+                            <td>{{$equipo->nro_serie}}</td>
+                            <td>{{$equipo->tipo_equipo}}</td>
+                            <td>{{$equipo->marca}}</td>
+                            <td>{{$equipo->asignado}}</td>
+                            <td>{{$equipo->operativo}}</td>
                             <td>{{-- <button type="button" class="btn btn-success">Añadir</button> --}}
                                 <a id="agregar-dato" class="bi bi-file-earmark-plus-fill h1 text-success enviar-dato" href="" onclick="obtenerDatos(this)"></a>
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>DTn-2020-006</td>
-                            <td>12-002-002-004-001</td>
-                            <td>dfz-awas5-4554a-sqds</td>
-                            <td>Computador</td>
-                            <td>Samsung</td>
-                            <td>Juan Maestro</td>
-                            <td>NO</td>
-                            <td>
-                                <a id="agregar-dato" class="bi bi-file-earmark-plus-fill h1 text-success enviar-dato" href="" onclick="obtenerDatos(this)"></a>
 
 
-                            </td>
-                        </tr>
+                        @endforeach
+
+
                     </tbody>
                 </table>
+                <div>
+                    {{ $equipos->links() }}
+                </div>
 
             </div>
         </div>
@@ -193,6 +190,7 @@
 
     function obtenerDatos(enlace) {
         event.preventDefault();
+
         var fila = enlace.parentNode.parentNode;
         var id = fila.cells[0].innerHTML;
         var nroInventario = fila.cells[1].innerHTML;
@@ -258,6 +256,8 @@
                 link.href = window.URL.createObjectURL(blob);
                 link.download = 'Certificado de Entrega '+Date()+'.pdf';
                 link.click();
+
+
 
                 Swal.fire({
                     title: 'Formulario',

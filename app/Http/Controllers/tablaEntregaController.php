@@ -12,10 +12,9 @@ class tablaEntregaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function generarFormEntrega(Request $request)
+    public function ObtenerEquipos(Request $request)
     {
-        $datos = $request->input('data');
-        return redirect()->route('descargarpdf')->with('datos', $datos);
+
     }
 
 

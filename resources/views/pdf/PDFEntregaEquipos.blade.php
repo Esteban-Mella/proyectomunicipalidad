@@ -161,10 +161,8 @@
         </div>
         <br>
         <br>
-        <br>
-        <br>
-        <br>
-        <br>
+
+
 
         <div class="contenedor-tablas">
             <table class="tabla-info">

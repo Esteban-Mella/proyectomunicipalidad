@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\equiposController;
-use App\Http\Controllers\tablaEntregaController;/* no utilizado momentaneamente  */
+use App\Http\Controllers\historialEntregaController;
+use App\Http\Controllers\historialRetornos;
 use Illuminate\Support\Facades\Route;
 
 
@@ -11,13 +12,16 @@ Route::get('/', function () {
 
 /* route::view('/entregaEquipos','entregaEquipos')->name('entregaEquipos'); */
 /* route::view('/retornoEquipos','retornoEquipos')->name('retornoEquipos'); */
-route::view('/consultaEquipos','consultaEquipos')->name('consultaEquipos');
-route::view('/historialEntregas','historialEntregas')->name('historialEntregas');
-route::view('/historialRetorno','historialRetorno')->name('historialRetorno');
+/* route::view('/consultaEquipos','consultaEquipos')->name('consultaEquipos'); */
+/* route::view('/historialEntregas','historialEntregas')->name('historialEntregas'); */
+/* route::view('/historialRetorno','historialRetorno')->name('historialRetorno'); */
 
 route::any('/pdf','PDFController@PDF')->name('descargarpdf');
 
+route::get('/consultaEquipos',[equiposController::class,'equiposDisponibles'])->name('consultaEquipos');
 
+route::get('/historialRetorno',[historialRetornos::class,'obtenerEquiposHistorial'])->name('historialRetorno');
+route::get('/historialEntregas',[historialEntregaController::class,'obtenerEquiposHistorial'])->name('historialEntregas');
 route::get('/entregaEquipos',[equiposController::class,'recuperarEquiposentrega'])->name('entregaEquipos');
 route::get('/retornoEquipos',[equiposController::class,'recuperarEquiposretorno'])->name('retornoEquipos');
 

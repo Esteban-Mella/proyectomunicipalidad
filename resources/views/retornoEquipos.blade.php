@@ -4,7 +4,7 @@
 
 {{-- inicio barra de busqueda --}}
 <section class="mx-3 mb-3 p-3 border rounded-3">
-    <H3>Formulario para Retorno de Equipos</H3>
+    <H3>Formulario para Retornar Equipos</H3>
     <div class="d-flex ml-auto justify-content-end">
         <a class="btn btn-secondary rounded p-2 px-2" href="{{route('historialRetorno')}}">
             <i class="bi bi-clock-history"></i>

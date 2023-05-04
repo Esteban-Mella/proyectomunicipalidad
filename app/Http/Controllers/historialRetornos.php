@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
-class historialEntregaController extends Controller
+class historialRetornos extends Controller
 {
     /**
      * Handle the incoming request.
@@ -16,12 +15,8 @@ class historialEntregaController extends Controller
      */
     public function obtenerEquiposHistorial(Request $request)
     {
-        $historialEntregas = DB::table('historialentregas')->orderBy('id', 'desc')->paginate(10);
+        $historialRetorno = DB::table('historialrecepcion')->orderBy('id', 'desc')->paginate(5);
 
-        return view('historialEntregas', ['historialEntregas'=>$historialEntregas]);
-    }
-    public function actualizar(Request $request)
-    {
-        //
+        return view('historialRetorno', ['historialRetorno'=>$historialRetorno]);
     }
 }

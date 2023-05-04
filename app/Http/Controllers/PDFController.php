@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\historialentregas;
-use Psy\CodeCleaner\EmptyArrayDimFetchPass;
+use App\historialrecepcion;
+
 
 class PDFController extends Controller
 {
@@ -18,24 +19,48 @@ class PDFController extends Controller
         $nro_activo_fijo = '';
         $nro_serie = '';
         $nombre_equipo = '';
+        $marca_equipo= '';
         $rutapdf='';
 
         $nombreArchivo ='pdf-'.$informacion[1].'-'.date("d M j G-i-s T Y").'.pdf';
         $pdf = PDF::loadView('pdf.PDFEntregaEquipos', ['datosTabla' => $datosTabla], ['informacion' => $informacion]);
 
         foreach($datosTabla as $fila){
-            $nroInventario=$nroInventario.','.$fila[1];
+            $nroInventario.=','.$fila[1];
+            $nro_activo_fijo.=','.$fila[2];
+            $nro_serie.=','.$fila[3];
+            $nombre_equipo.=','.$fila[4];
+            $marca_equipo.=','.$fila[5];
         }
-
-
 
         if ($informacion[1]==='Entrega') {
             Storage::disk('cargaEntrega')->put($nombreArchivo, $pdf->output());
+
             $historialentregas = new historialentregas;
+
             $historialentregas->nro_inventario = $nroInventario;
+            $historialentregas->nro_activo_fijo = $nro_activo_fijo;
+            $historialentregas->nro_serie = $nro_serie;
+            $historialentregas->nombre_equipo = $nombre_equipo;
+            $historialentregas->marca_equipo = $marca_equipo;
+            $historialentregas->asignado = $informacion[0];
+            $historialentregas->ruta_pdf = $nombreArchivo;
+
             $historialentregas->save();
         } else {
+
             Storage::disk('cargaRetorno')->put($nombreArchivo, $pdf->output());
+            $historialrecepcion = new historialrecepcion;
+
+            $historialrecepcion->nro_inventario = $nroInventario;
+            $historialrecepcion->nro_activo_fijo = $nro_activo_fijo;
+            $historialrecepcion->nro_serie = $nro_serie;
+            $historialrecepcion->nombre_equipo = $nombre_equipo;
+            $historialrecepcion->marca_equipo = $marca_equipo;
+            $historialrecepcion->asignado = $informacion[0];
+            $historialrecepcion->ruta_pdf = $nombreArchivo;
+
+            $historialrecepcion->save();
         }
 
 

@@ -26,4 +26,10 @@ class equiposController extends Controller
         $equipos = DB::table('equipos')->paginate(10);
         return view('retornoEquipos', ['equipos'=>$equipos], ['usuarios'=>$usuarios]);
     }
+    public function equiposDisponibles(Request $request)
+    {
+
+        $equipos = DB::table('equipos')->paginate(10);
+        return view('consultaEquipos', ['equipos'=>$equipos]);
+    }
 }

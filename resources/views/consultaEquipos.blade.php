@@ -44,66 +44,40 @@
             </tr>
             </thead>
             <tbody>
-                {{-- prueba disponible --}}
-                <tr>
-                    <th scope="row">1</th>
-                    <td>dfs-awas5-4554a-sqds</td>
-                    <td>1-002-002-004-001</td>
-                    <td>DTI-2020-006</td>
-                    <td>Sin Grafica</td>
-                    <td>LG</td>
-                    <td>Monitor</td>
-                    <td>No Aplica</td>
-                    <td>Sin procesador</td>
-                    <td>n/d</td>
-                    <td>Sin R.A.M</td>
-                    <td>n/d</td>
-                    <td>En Bodega</td>
-                    <td>SI</td>
-                    <td>sI</td>
-                    <td class="d-flex justify-content-center"><i class="bi bi-calendar-check-fill h1 text-success " href="#"></i></td>
-                </tr>
-                {{-- prueba no disponible --}}
-                <tr>
-                    <th scope="row">1</th>
-                    <td>234-aasd-5231-2324</td>
-                    <td>1-022-332-004-451</td>
-                    <td>DTI-2020-600</td>
-                    <td>Sin Grafica</td>
-                    <td>samsung</td>
-                    <td>monitor</td>
-                    <td>No Aplica</td>
-                    <td>Sin procesador</td>
-                    <td>n/d</td>
-                    <td>Sin R.A.M</td>
-                    <td>n/d</td>
-                    <td>Juan Pedro</td>
-                    <td>SI</td>
-                    <td>sI</td>
-                    <td class="d-flex justify-content-center"><i class="bi bi-calendar-check-fill h1 text-danger " href="#"></i></td>
-                </tr>
+                @foreach ($equipos as $equipo)
+                        <tr style="max-height: 100px;">
+                            <th scope="row">{{$equipo->id}}</th>
+                            <td>{{$equipo->nro_serie}}</td>
+                            <td>{{$equipo->nro_activofijo}}</td>
+                            <td>{{$equipo->nro_inventario}}</td>
+                            <td>{{$equipo->tarjeta_grafica}}</td>
+                            <td>{{$equipo->marca}}</td>
+                            <td>{{$equipo->tipo_equipo}}</td>
+                            <td>{{$equipo->sistema_operativo}}</td>
+                            <td>{{$equipo->procesador}}</td>
+                            <td>{{$equipo->sistema_operativo}}</td>
+                            <td>{{$equipo->ram}}</td>
+                            <td>{{$equipo->hdd}}</td>
+                            <td>{{$equipo->asignado}}</td>
+                            <td>{{$equipo->inventariado}}</td>
+                            <td>{{$equipo->operativo}}</td>
 
-                <tr>
-                    <th scope="row">1</th>
-                    <td>201502-400</td>
-                    <td>54-5465-54642-5454</td>
-                    <td>nvr-2025-600</td>
-                    <td>Sin Grafica</td>
-                    <td>lexmar</td>
-                    <td>impresora</td>
-                    <td>No Aplica</td>
-                    <td>Sin procesador</td>
-                    <td>n/d</td>
-                    <td>Sin R.A.M</td>
-                    <td>n/d</td>
-                    <td>En Bodega</td>
-                    <td>SI</td>
-                    <td>sI</td>
-                    <td class="d-flex justify-content-center"><i class="bi bi-calendar-check-fill h1 text-success " href="#"></i></td>
-                </tr>
+                            @if(strtolower($equipo->asignado) === 'en bodega')
+                                <td class="d-flex justify-content-center"><i class="bi bi-calendar-check-fill h1 text-success " href="#"></i></td>
+                            @else
+                                <td class="d-flex justify-content-center"><i class="bi bi-calendar-check-fill h1 text-danger " href="#"></i></td>
+                            @endif
+                        </tr>
+                @endforeach
+
+
 
             </tbody>
         </table>
+        <div>
+            {{ $equipos->links() }}
+        </div>
+
 
     </section>
 

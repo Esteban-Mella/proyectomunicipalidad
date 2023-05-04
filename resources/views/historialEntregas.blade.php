@@ -37,26 +37,26 @@
             </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>DTI-2020-006</td>
-                    <td>1-002-002-004-001</td>
-                    <td>dfs-awas5-4554a-sqds</td>
-                    <td>Impresora</td>
-                    <td>En Bodega</td>
-                    <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " href="#"></a></td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>DTI-2020-312</td>
-                    <td>1-01232-002-0124-1201</td>
-                    <td>dasdfs-aasds5-45d54a-sqds</td>
-                    <td>Computador</td>
-                    <td>En Bodega</td>
-                    <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " href="#"></a></td>
-                </tr>
+
+                @foreach ($historialEntregas as $historial)
+                        <tr style="max-height: 100px;">
+                            <th scope="row">{{$historial->id}}</th>
+                            <td>{{str_replace(",", " ", $historial->nro_inventario)}}</td>
+                            <td>{{str_replace(",", " ", $historial->nro_activo_fijo)}}</td>
+                            <td>{{str_replace(",", " ", $historial->nro_serie)}}</td>
+                            <td>{{str_replace(",", " ", $historial->nombre_equipo)}}</td>
+                            <td>{{$historial->asignado}}</td>
+
+                            <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " href="#"></a></td>
+                        </tr>
+
+
+                        @endforeach
             </tbody>
         </table>
+        <div>
+            {{ $historialEntregas->links() }}
+        </div>
 
     </div>
 </div>

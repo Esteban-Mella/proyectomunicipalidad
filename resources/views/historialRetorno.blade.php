@@ -36,19 +36,26 @@
             </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>DTI-2020-006</td>
-                    <td>1-002-002-004-001</td>
-                    <td>dfs-awas5-4554a-sqds</td>
-                    <td>Impresora</td>
-                    <td>En Bodega</td>
-                    <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " href="#"></a></td>
-                </tr>
+                @foreach ($historialRetorno as $historial)
+                        <tr style="max-height: 100px;">
+                            <th scope="row">{{$historial->id}}</th>
+                            <td>{{str_replace(",", " ", $historial->nro_inventario)}}</td>
+                            <td>{{str_replace(",", " ", $historial->nro_activo_fijo)}}</td>
+                            <td>{{str_replace(",", " ", $historial->nro_serie)}}</td>
+                            <td>{{str_replace(",", " ", $historial->nombre_equipo)}}</td>
+                            <td>{{$historial->asignado}}</td>
+
+                            <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " href="#"></a></td>
+                        </tr>
+
+
+                        @endforeach
 
             </tbody>
         </table>
-
+        <div>
+            {{ $historialRetorno->links() }}
+        </div>
     </div>
 </div>
 </div>

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\historial_entregas;
+use App\historialentregas;
 
 class PDFController extends Controller
 {
@@ -18,6 +18,10 @@ class PDFController extends Controller
         $nombreArchivo ='pdf-'.$informacion[1].'-'.date("d M j G-i-s T Y").'.pdf';
 
         $pdf = PDF::loadView('pdf.PDFEntregaEquipos', ['datosTabla' => $datosTabla], ['informacion' => $informacion]);
+
+        $historialentregas = new historialentregas;
+        $historialentregas->asignado ='si';
+        $historialentregas->save();
 
 
         if ($informacion[1]==='Entrega') {

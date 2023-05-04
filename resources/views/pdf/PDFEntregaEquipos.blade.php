@@ -179,7 +179,12 @@
                         <tr>
                             <td>1</td>
                             <td>{{ $fila[4]}}</td>
-                            <td>{{$fila[5]}} <br> Inventario informatica {{$fila[1]}} </td>
+                            @if ($fila[1] === 'No Inventariado' || $fila[1] === '')
+                                <td>{{$fila[5]}} <br> Activo Fijo {{$fila[2]}} </td>
+                            @else
+                                <td>{{$fila[5]}} <br> Inventario informatica {{$fila[1]}} </td>
+                            @endif
+
                         </tr>
                     @endforeach
                 </tbody>

@@ -17,6 +17,7 @@ Route::get('/', function () {
 /* route::view('/historialRetorno','historialRetorno')->name('historialRetorno'); */
 
 route::any('/pdf','PDFController@PDF')->name('descargarpdf');
+route::any('/pdfview','PDFController@PDFPreview')->name('previewPDF');
 
 route::get('/consultaEquipos',[equiposController::class,'equiposDisponibles'])->name('consultaEquipos');
 

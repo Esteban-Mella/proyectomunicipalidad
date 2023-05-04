@@ -68,7 +68,10 @@ class PDFController extends Controller
         return $pdf->stream('archivo.pdf');
     }
 
-    public function guardarArchivo(){
-
+    public function PDFPreview(Request $request){
+        $datosTabla = $request->input('datos');
+        $informacion = $request->input('informacion');
+        $pdf = PDF::loadView('pdf.PDFEntregaEquipos', ['datosTabla' => $datosTabla], ['informacion' => $informacion]);
+        return $pdf->stream('archivo.pdf');
     }
 }

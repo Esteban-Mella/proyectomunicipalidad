@@ -129,6 +129,10 @@
 
     <div class="d-flex ml-auto justify-content-end pt-3">
 
+        <button id="btn-preview" class="btn btn-secondary rounded p-2 px-2 mx-4 ">
+            <i class="bi bi-journal-check"></i>
+            Previsualizar formulario </button>
+
         <button id="btn-enviar-datos" class="btn btn-success rounded p-2 px-2">
             <i class="bi bi-journal-check"></i>
             Enviar datos</button>
@@ -254,17 +258,61 @@
                 var blob = new Blob([response], { type: 'application/pdf' });
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
+                /* link.setAttribute('target', '_blank'); */
                 link.download = 'Certificado de Entrega '+Date()+'.pdf';
                 link.click();
-
-
-
                 Swal.fire({
                     title: 'Formulario',
                     text: 'Formulario Generado correctamente!',
                     icon: 'success',
                     confirmButtonText: 'Aceptar'
                 });
+
+            }
+        });
+    }else{
+        Swal.fire({
+                    title: 'Error!',
+                    text: 'Revise que todos los campos se encuentren completos!',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+    }
+});
+
+
+$('#btn-preview').click(function() {
+    var usuarioPrestamo = $('#usuarioSelected option:selected').text();
+    var tipoForm='Entrega';
+    var informacion=[usuarioPrestamo, tipoForm];
+    var datosTabla = [];
+    $('#tabla-datos tbody tr').each(function() {
+        var fila = [];
+    $(this).find('td').each(function() {
+        fila.push($(this).text());
+    });
+    datosTabla.push(fila);
+    });
+
+    if(datosTabla.length > 0 && usuarioPrestamo!=='Busqueda de personal'){
+        $.ajax({
+        type: "POST",
+            url: "{{ route('previewPDF') }}",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "datos": datosTabla,
+                "informacion": informacion
+            },
+            xhrFields: {
+            responseType: 'blob'
+        },
+
+            success: function(response) {
+                var blob = new Blob([response], { type: 'application/pdf' });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.setAttribute('target', '_blank');
+                link.click();
 
             }
         });

@@ -26,7 +26,9 @@ route::get('/historialRetorno',[historialRetornos::class,'obtenerEquiposHistoria
 route::get('/historialEntregas',[historialEntregaController::class,'obtenerEquiposHistorial'])->name('historialEntregas');
 route::get('/entregaEquipos',[equiposController::class,'recuperarEquiposentrega'])->name('entregaEquipos');
 route::post('/equiposBusqueda',[equiposController::class,'equiposBusqueda'])->name('equiposBusqueda');
-route::any('/busquedaPorEstado',[equiposController::class,'busquedaPorEstado'])->name('busquedaPorEstado');
+route::post('/busquedaPorEstado',[equiposController::class,'busquedaPorEstado'])->name('busquedaPorEstado');
+route::post('/busquedaHistorialEntregas',[historialEntregaController::class,'busquedaHistorialEntregas'])->name('busquedaHistorialEntregas');
+
 route::get('/retornoEquipos',[equiposController::class,'recuperarEquiposretorno'])->name('retornoEquipos');
 
 /* route::get('/pdf','PDFController@PDF')->name('descargarpdf'); uso temporal en face de pruebas */

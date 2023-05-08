@@ -100,8 +100,6 @@
                     }
             })
 
-
-
         });
 
         $('#selectShow').on('change', function() {
@@ -124,7 +122,7 @@
         });
 
     </script>
-    {{-- script de selector para estados todos, disponible y no disponible --}}
+
 
 
 </x-layouts>

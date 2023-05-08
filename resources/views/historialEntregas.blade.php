@@ -70,14 +70,15 @@
     $(document).ready(function() {
     $('#busquedaEquipos').on('input', function() {
         var buscarText = $(this).val().toLowerCase();
-        $('#historialEquipos tbody tr').filter(function() {
-            var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5)').text().toLowerCase();
-                return tdText.indexOf(buscarText) === -1;
-            }).hide();
-        $('#historialEquipos tbody tr').filter(function() {
-            var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5)').text().toLowerCase();
-            return tdText.indexOf(buscarText) !== -1;
-        }).show();
+        $.ajax({
+                    url: "{{ route('busquedaHistorialEntregas') }}",
+                    type: "post",
+                    dataType: "json",
+                    data: {_token: "{{ csrf_token() }}", text: buscarText},
+                success: function (response) {
+                        $("#historialEquipos").html(response);
+                    }
+            })
     });
     });
 

@@ -68,9 +68,6 @@ class equiposController extends Controller
            })->paginate(10);
            $view = view('viewConsultaEquipos', compact('data'))->render();
            return response()->json($view);
-
         }
-
-
     }
 }

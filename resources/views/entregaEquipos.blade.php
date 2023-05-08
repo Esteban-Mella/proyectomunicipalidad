@@ -316,6 +316,7 @@ $('#btn-preview').click(function() {
 
             }
         });
+
     }else{
         Swal.fire({
                     title: 'Error!',

@@ -152,24 +152,27 @@
 
 </script>
 
-<script>
 
+
+<script>
+    /* busqueda de equipos en la tabla de equipos */
     $(document).ready(function() {
         $('#busquedaEquipos').on('input', function() {
-            var buscarText = $(this).val().toLowerCase();
-            $('#formulario-datos tbody tr').filter(function() {
-                var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7)').text().toLowerCase();
-                    return tdText.indexOf(buscarText) === -1;
-                }).hide();
-            $('#formulario-datos tbody tr').filter(function() {
-                var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7)').text().toLowerCase();
-                return tdText.indexOf(buscarText) !== -1;
-            }).show();
+            var buscarTexto = $(this).val().toLowerCase();
+            $.ajax({
+                url: "{{ route('equiposBusqueda') }}",
+                type: "post",
+                dataType: "json",
+                data: {_token: "{{ csrf_token() }}", text: buscarTexto },
+                success: function (response) {
+                    $("#formulario-datos").html(response);
+                }
+            })
+
         });
     });
 
 </script>
-
 
 {{-- Area de scripts para funcionalidad de pagina --}}
 

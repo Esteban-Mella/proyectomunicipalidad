@@ -21,9 +21,11 @@ route::any('/pdfview','PDFController@PDFPreview')->name('previewPDF');
 
 route::get('/consultaEquipos',[equiposController::class,'equiposDisponibles'])->name('consultaEquipos');
 
+
 route::get('/historialRetorno',[historialRetornos::class,'obtenerEquiposHistorial'])->name('historialRetorno');
 route::get('/historialEntregas',[historialEntregaController::class,'obtenerEquiposHistorial'])->name('historialEntregas');
 route::get('/entregaEquipos',[equiposController::class,'recuperarEquiposentrega'])->name('entregaEquipos');
+route::post('/equiposEntrega',[equiposController::class,'equiposBusqueda'])->name('equiposEntrega');
 route::get('/retornoEquipos',[equiposController::class,'recuperarEquiposretorno'])->name('retornoEquipos');
 
 /* route::get('/pdf','PDFController@PDF')->name('descargarpdf'); uso temporal en face de pruebas */

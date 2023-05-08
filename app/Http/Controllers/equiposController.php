@@ -32,4 +32,16 @@ class equiposController extends Controller
         $equipos = DB::table('equipos')->paginate(10);
         return view('consultaEquipos', ['equipos'=>$equipos]);
     }
+    public function equiposBusqueda(Request $request)
+    {
+
+        $busqueda = $request->text;
+        $data = DB::table('equipos')->where('nro_activofijo', 'LIKE', '%'.$busqueda.'%')->paginate(10);
+        $view = view('resultadoBusqueda', compact('data'))->render();
+
+        return response()->json($view);
+
+
+
+    }
 }

@@ -165,7 +165,7 @@
 
 </script>
 
-<script>
+{{-- <script>
     /* busqueda de equipos en la tabla de equipos */
     $(document).ready(function() {
     $('#busquedaEquipos').on('input', function() {
@@ -181,7 +181,30 @@
     });
     });
 
+</script> --}}
+
+<script>
+    /* busqueda de equipos en la tabla de equipos */
+    $(document).ready(function() {
+        $('#busquedaEquipos').on('input', function() {
+            var buscarTexto = $(this).val().toLowerCase();
+            $.ajax({
+                url: "{{ route('equiposEntrega') }}",
+                type: "post",
+                dataType: "json",
+                data: {_token: "{{ csrf_token() }}", text: buscarTexto },
+                success: function (response) {
+                    $("#formulario-datos").html(response);
+                }
+            })
+
+        });
+
+
+    });
+
 </script>
+
 
 <script>
     /* obtencion de datos de tabla dinamica con equipos para entregar al usuario */
@@ -204,6 +227,9 @@
         var marcaEquipo = fila.cells[5].innerHTML;
         var asignado = fila.cells[6].innerHTML;
         var operativo = fila.cells[7].innerHTML;
+
+        var fila = enlace.parentNode.parentNode;
+        fila.parentNode.removeChild(fila);
 
         $('#tabla-datos tbody').append(
             '<tr>'+

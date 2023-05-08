@@ -12,9 +12,9 @@
         </div>
         <h4 class="mt-3">Mostrar:</h4>
         <select id="selectShow" class="form-select mt-3 mb-3 w-25">
-            <option value="">Todos</option>
-            <option value="En Bodega">Equipos Disponibles</option>
-            <option value="noDisponibles">Equipos no Disponibles</option>
+            <option value="0">Todos</option>
+            <option value="1">Equipos Disponibles</option>
+            <option value="2">Equipos no Disponibles</option>
 
           </select>
 {{-- fin barra de busqueda --}}
@@ -86,56 +86,46 @@
         /* busqueda de equipos en la tabla de equipos */
         $(document).ready(function() {
         $('#busquedaEquipos').on('input', function() {
-            var buscarText = $(this).val().toLowerCase();
-            var filtro = $('#selectShow option:selected').val().toLowerCase();
-            $('#formulario-datos tbody tr').filter(function() {
-                var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(6), td:nth-child(7), td:nth-child(13), td:nth-child(15)').text().toLowerCase();
-                    return tdText.indexOf(buscarText) === -1;
-                }).hide();
 
-            $('#formulario-datos tbody tr').filter(function() {
-                var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(6), td:nth-child(7), td:nth-child(13), td:nth-child(15)').text().toLowerCase();
-                return tdText.indexOf(buscarText) !== -1;
-            }).show();
+            var buscarText = $('#busquedaEquipos').val().toLowerCase();
+            var filtro = $('#selectShow option:selected').val().toLowerCase();
+
+            $.ajax({
+                    url: "{{ route('busquedaPorEstado') }}",
+                    type: "post",
+                    dataType: "json",
+                    data: {_token: "{{ csrf_token() }}", filtro: filtro, buscarText: buscarText},
+                success: function (response) {
+                        $("#formulario-datos").html(response);
+                    }
+            })
+
+
 
         });
+
+        $('#selectShow').on('change', function() {
+
+            var buscarText = $('#busquedaEquipos').val().toLowerCase();
+            var filtro = $('#selectShow option:selected').val().toLowerCase();
+
+            $.ajax({
+                    url: "{{ route('busquedaPorEstado') }}",
+                    type: "post",
+                    dataType: "json",
+                    data: {_token: "{{ csrf_token() }}", filtro: filtro, buscarText: buscarText},
+                success: function (response) {
+                        $("#formulario-datos").html(response);
+                    }
+            })
+
+        });
+
         });
 
     </script>
     {{-- script de selector para estados todos, disponible y no disponible --}}
-    <script>
-        $(document).ready(function() {
-            $('#selectShow').on('change', function() {
-                var buscarText = $(this).val().toLowerCase();
 
-                if(buscarText=='en bodega' || buscarText==''){
-                    console.log(buscarText);
-                    $('#formulario-datos tbody tr').filter(function() {
-                        var tdText = $(this).find('td:nth-child(13)').text().toLowerCase();
-                        return tdText.indexOf(buscarText) === -1;
-                    }).hide();
-                    $('#formulario-datos tbody tr').filter(function() {
-                        var tdText = $(this).find('td:nth-child(13)').text().toLowerCase();
-                        return tdText.indexOf(buscarText) !== -1;
-                    }).show();
-
-                }else if(buscarText=='nodisponibles'){
-                    var buscarText="En Bodega".toLowerCase();
-                    $('#formulario-datos tbody tr').filter(function() {
-                        var tdText = $(this).find('td:nth-child(13)').text().toLowerCase();
-                        return tdText.indexOf(buscarText) === -1;
-                    }).show();
-                    $('#formulario-datos tbody tr').filter(function() {
-                        var tdText = $(this).find('td:nth-child(13)').text().toLowerCase();
-                        return tdText.indexOf(buscarText) !== -1;
-                    }).hide();
-                }
-
-            });
-        });
-
-
-    </script>
 
 </x-layouts>
 

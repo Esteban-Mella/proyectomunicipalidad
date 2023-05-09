@@ -6,6 +6,8 @@
         <th scope="col">N° de serie Equipos</th>
         <th scope="col">N° Activo fijo Equipos</th>
         <th scope="col">N° de Inventario Equipos</th>
+        <th scope="col">Tipo Equipo</th>
+        <th scope="col">Marca</th>
         <th scope="col">Marcado como no operativo</th>
         <th scope="col">Fecha</th>
     </tr>
@@ -17,6 +19,8 @@
                     <td>{{$historial->nro_serie}}</td>
                     <td>{{$historial->nro_activo_fijo}}</td>
                     <td>{{$historial->nro_inventario}}</td>
+                    <td>{{$historial->tipo_equipo}}</td>
+                    <td>{{$historial->marca}}</td>
                     <td>{{$historial->marcado_no_operativo}}</td>
                     <td>{{$historial->created_at}}</td>
                 </tr>

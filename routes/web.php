@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 route::any('/pdf','PDFController@PDF')->name('descargarpdf');
 route::any('/pdfview','PDFController@PDFPreview')->name('previewPDF');
+route::any('/previewPDFActivofijo','consultaActivoFijo@previewPDFActivofijo')->name('previewPDFActivofijo');
+
 
 route::get('/consultaEquipos',[equiposController::class,'equiposDisponibles'])->name('consultaEquipos');
 

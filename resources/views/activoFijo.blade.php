@@ -32,6 +32,8 @@
                 <th scope="col">N° de serie Equipos</th>
                 <th scope="col">N° Activo fijo Equipos</th>
                 <th scope="col">N° de Inventario Equipos</th>
+                <th scope="col">Tipo Equipo</th>
+                <th scope="col">Marca</th>
                 <th scope="col">Marcado como no operativo</th>
                 <th scope="col">Fecha</th>
             </tr>
@@ -39,10 +41,12 @@
             <tbody>
                 @foreach ($equipos as $historial)
                         <tr style="max-height: 100px;">
-                            <th scope="row">{{$historial->id}}</th>
+                            <td scope="row">{{$historial->id}}</td>
                             <td>{{$historial->nro_serie}}</td>
                             <td>{{$historial->nro_activo_fijo}}</td>
                             <td>{{$historial->nro_inventario}}</td>
+                            <td>{{$historial->tipo_equipo}}</td>
+                            <td>{{$historial->marca}}</td>
                             <td>{{$historial->marcado_no_operativo}}</td>
                             <td>{{$historial->created_at}}</td>
                         </tr>
@@ -55,6 +59,16 @@
         </div>
     </div>
 </div>
+</div>
+
+<div class="d-flex ml-auto justify-content-end pt-3">
+
+    <button id="btn-preview" class="btn btn-success rounded p-2 px-2 mx-4 ">
+        <i class="bi bi-journal-check"></i>
+        Generar Reporte </button>
+
+
+
 </div>
 
 </section>
@@ -77,6 +91,46 @@
         });
     });
 
+
+
+  /* funcion para envio de datos desde la tabla html y el campo select de personal a dompdf */
+
+
+$('#btn-preview').click(function() {
+
+    var datosTabla = [];
+    $('#tablaActivoFijo tbody tr').each(function() {
+        var fila = [];
+    $(this).find('td').each(function() {
+        fila.push($(this).text());
+    });
+    datosTabla.push(fila);
+    });
+
+
+        $.ajax({
+        type: "POST",
+            url: "{{ route('previewPDFActivofijo') }}",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "datos": datosTabla,
+
+            },
+            xhrFields: {
+            responseType: 'blob'
+        },
+
+            success: function(response) {
+                var blob = new Blob([response], { type: 'application/pdf' });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.setAttribute('target', '_blank');
+                link.click();
+
+            }
+        });
+
+});
 </script>
 
 </x-layouts>

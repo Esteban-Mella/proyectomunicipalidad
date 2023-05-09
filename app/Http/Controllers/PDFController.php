@@ -53,6 +53,8 @@ class PDFController extends Controller
                         $activoFijo->nro_inventario=$fila[1];
                         $activoFijo->nro_activo_fijo=$fila[2];
                         $activoFijo->nro_serie=$fila[3];
+                        $activoFijo->tipo_equipo=$fila[4];
+                        $activoFijo->marca=$fila[5];
                         $activoFijo->marcado_no_operativo='SI';
                         $activoFijo->save();
 

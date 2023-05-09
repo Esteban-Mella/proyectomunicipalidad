@@ -8,13 +8,20 @@
         <h3>Equipos disponibles y no disponibles</h3>
 
         <div class="form-outline">
-            <input type="search" id="form1" class="form-control" placeholder="busqueda de equipos" aria-label="Search" />
+            <input type="text" id="busquedaEquipos" class="form-control mt-3" placeholder="busqueda de equipos" aria-label="Search" />
         </div>
-    </div>
+        <h4 class="mt-3">Mostrar:</h4>
+        <select id="selectShow" class="form-select mt-3 mb-3 w-25">
+            <option value="0">Todos</option>
+            <option value="1">Equipos Disponibles</option>
+            <option value="2">Equipos no Disponibles</option>
+
+          </select>
+{{-- fin barra de busqueda --}}
 
     <div class="col" >
         <h3 class="mb-3 mt-3">Busqueda de equipos</h3>
-        <table class="table table-striped border rounded-4">
+        <table id="formulario-datos" class="table table-striped border rounded-4">
 
             <thead>
             <tr >
@@ -37,50 +44,86 @@
             </tr>
             </thead>
             <tbody>
-                {{-- prueba disponible --}}
-                <tr>
-                    <th scope="row">1</th>
-                    <td>dfs-awas5-4554a-sqds</td>
-                    <td>1-002-002-004-001</td>
-                    <td>DTI-2020-006</td>
-                    <td>Sin Grafica</td>
-                    <td>LG</td>
-                    <td>Monitor</td>
-                    <td>No Aplica</td>
-                    <td>Sin procesador</td>
-                    <td>n/d</td>
-                    <td>Sin R.A.M</td>
-                    <td>n/d</td>
-                    <td>Moises David</td>
-                    <td>SI</td>
-                    <td>sI</td>
-                    <td class="d-flex justify-content-center"><i class="bi bi-calendar-check-fill h1 text-success " href="#"></i></td>
-                </tr>
-                {{-- prueba no disponible --}}
-                <tr>
-                    <th scope="row">1</th>
-                    <td>234-aasd-5231-2324</td>
-                    <td>1-002-332-004-451</td>
-                    <td>DTI-2020-600</td>
-                    <td>Sin Grafica</td>
-                    <td>LG</td>
-                    <td>Monitor</td>
-                    <td>No Aplica</td>
-                    <td>Sin procesador</td>
-                    <td>n/d</td>
-                    <td>Sin R.A.M</td>
-                    <td>n/d</td>
-                    <td>Juan Pedro</td>
-                    <td>SI</td>
-                    <td>sI</td>
-                    <td class="d-flex justify-content-center"><i class="bi bi-calendar-check-fill h1 text-danger " href="#"></i></td>
-                </tr>
+                @foreach ($equipos as $equipo)
+                        <tr style="max-height: 100px;">
+                            <th scope="row">{{$equipo->id}}</th>
+                            <td>{{$equipo->nro_serie}}</td>
+                            <td>{{$equipo->nro_activofijo}}</td>
+                            <td>{{$equipo->nro_inventario}}</td>
+                            <td>{{$equipo->tarjeta_grafica}}</td>
+                            <td>{{$equipo->marca}}</td>
+                            <td>{{$equipo->tipo_equipo}}</td>
+                            <td>{{$equipo->sistema_operativo}}</td>
+                            <td>{{$equipo->procesador}}</td>
+                            <td>{{$equipo->sistema_operativo}}</td>
+                            <td>{{$equipo->ram}}</td>
+                            <td>{{$equipo->hdd}}</td>
+                            <td>{{$equipo->asignado}}</td>
+                            <td>{{$equipo->inventariado}}</td>
+                            <td>{{$equipo->operativo}}</td>
+
+                            @if(strtolower($equipo->asignado) === 'en bodega')
+                                <td class="d-flex justify-content-center"><i class="bi bi-calendar-check-fill h1 text-success " href="#"></i></td>
+                            @else
+                                <td class="d-flex justify-content-center"><i class="bi bi-calendar-check-fill h1 text-danger " href="#"></i></td>
+                            @endif
+                        </tr>
+                @endforeach
+
+
 
             </tbody>
         </table>
+        <div>
+            {{ $equipos->links() }}
+        </div>
 
-    </div>
 
-</section>
+    </section>
+
+
+    <script>
+        /* busqueda de equipos en la tabla de equipos */
+        $(document).ready(function() {
+        $('#busquedaEquipos').on('input', function() {
+
+            var buscarText = $('#busquedaEquipos').val().toLowerCase();
+            var filtro = $('#selectShow option:selected').val().toLowerCase();
+
+            $.ajax({
+                    url: "{{ route('busquedaPorEstado') }}",
+                    type: "post",
+                    dataType: "json",
+                    data: {_token: "{{ csrf_token() }}", filtro: filtro, buscarText: buscarText},
+                success: function (response) {
+                        $("#formulario-datos").html(response);
+                    }
+            })
+
+        });
+
+        $('#selectShow').on('change', function() {
+
+            var buscarText = $('#busquedaEquipos').val().toLowerCase();
+            var filtro = $('#selectShow option:selected').val().toLowerCase();
+
+            $.ajax({
+                    url: "{{ route('busquedaPorEstado') }}",
+                    type: "post",
+                    dataType: "json",
+                    data: {_token: "{{ csrf_token() }}", filtro: filtro, buscarText: buscarText},
+                success: function (response) {
+                        $("#formulario-datos").html(response);
+                    }
+            })
+
+        });
+
+        });
+
+    </script>
+
+
 
 </x-layouts>
+

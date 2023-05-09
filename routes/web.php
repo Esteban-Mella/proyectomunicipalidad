@@ -1,30 +1,35 @@
 <?php
 
-use App\Http\Controllers\tablaEntregaController;
+use App\Http\Controllers\equiposController;
+use App\Http\Controllers\historialEntregaController;
+use App\Http\Controllers\historialRetornos;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('entregaEquipos');
 });
 
-route::view('/entregaEquipos','entregaEquipos')->name('entregaEquipos');
-route::view('/retornoEquipos','retornoEquipos')->name('retornoEquipos');
-route::view('/consultaEquipos','consultaEquipos')->name('consultaEquipos');
-route::view('/historialEntregas','historialEntregas')->name('historialEntregas');
-route::view('/historialRetorno','historialRetorno')->name('historialRetorno');
+/* route::view('/entregaEquipos','entregaEquipos')->name('entregaEquipos'); */
+/* route::view('/retornoEquipos','retornoEquipos')->name('retornoEquipos'); */
+/* route::view('/consultaEquipos','consultaEquipos')->name('consultaEquipos'); */
+/* route::view('/historialEntregas','historialEntregas')->name('historialEntregas'); */
+/* route::view('/historialRetorno','historialRetorno')->name('historialRetorno'); */
 
-route::get('/pdf','PDFController@PDF')->name('descargarpdf');
+route::any('/pdf','PDFController@PDF')->name('descargarpdf');
+route::any('/pdfview','PDFController@PDFPreview')->name('previewPDF');
 
-route::post('/entregaEquipos',[tablaEntregaController::class,'generarFormEntrega'])->name('generarFormEntrega');
+route::get('/consultaEquipos',[equiposController::class,'equiposDisponibles'])->name('consultaEquipos');
+
+
+route::get('/historialRetorno',[historialRetornos::class,'obtenerEquiposHistorial'])->name('historialRetorno');
+route::get('/historialEntregas',[historialEntregaController::class,'obtenerEquiposHistorial'])->name('historialEntregas');
+route::get('/entregaEquipos',[equiposController::class,'recuperarEquiposentrega'])->name('entregaEquipos');
+route::post('/equiposBusqueda',[equiposController::class,'equiposBusqueda'])->name('equiposBusqueda');
+route::post('/busquedaPorEstado',[equiposController::class,'busquedaPorEstado'])->name('busquedaPorEstado');
+route::post('/busquedaHistorialEntregas',[historialEntregaController::class,'busquedaHistorialEntregas'])->name('busquedaHistorialEntregas');
+
+route::get('/retornoEquipos',[equiposController::class,'recuperarEquiposretorno'])->name('retornoEquipos');
+
+/* route::get('/pdf','PDFController@PDF')->name('descargarpdf'); uso temporal en face de pruebas */
 

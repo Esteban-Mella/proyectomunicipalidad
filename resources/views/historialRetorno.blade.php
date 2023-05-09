@@ -11,8 +11,8 @@
     <div class="container-fuid">
         <div class="col">
             <h3>Busqueda</h3>
-            <div class="form-outline">
-                <input type="search" id="form1" class="form-control" placeholder="busqueda de Equipo" aria-label="Search" />
+            <div class="form-outline mb-3">
+                <input type="text" id="busquedaEquipos" class="form-control" placeholder="Busqueda en historial de retornos" />
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
 
      <div class="col" >
         <h3 class="mb-3 mt-3">Busqueda en Historial</h3>
-        <table class="table table-striped border rounded-4">
+        <table id="historialEquipos" class="table table-striped border rounded-4">
 
             <thead>
             <tr >
@@ -36,23 +36,48 @@
             </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>DTI-2020-006</td>
-                    <td>1-002-002-004-001</td>
-                    <td>dfs-awas5-4554a-sqds</td>
-                    <td>Impresora</td>
-                    <td>En Bodega</td>
-                    <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " href="#"></a></td>
-                </tr>
+                @foreach ($historialRetorno as $historial)
+                        <tr style="max-height: 100px;">
+                            <th scope="row">{{$historial->id}}</th>
+                            <td>{{str_replace(",", " ", $historial->nro_inventario)}}</td>
+                            <td>{{str_replace(",", " ", $historial->nro_activo_fijo)}}</td>
+                            <td>{{str_replace(",", " ", $historial->nro_serie)}}</td>
+                            <td>{{str_replace(",", " ", $historial->nombre_equipo)}}</td>
+                            <td>{{$historial->asignado}}</td>
+
+                            <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " href="#"></a></td>
+                        </tr>
+
+
+                        @endforeach
 
             </tbody>
         </table>
-
+        <div>
+            {{ $historialRetorno->links() }}
+        </div>
     </div>
 </div>
 </div>
 
 </section>
+
+<script>
+    /* busqueda de equipos en la tabla */
+    $(document).ready(function() {
+    $('#busquedaEquipos').on('input', function() {
+        var buscarText = $(this).val().toLowerCase();
+        $('#historialEquipos tbody tr').filter(function() {
+            var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5)').text().toLowerCase();
+                return tdText.indexOf(buscarText) === -1;
+            }).hide();
+        $('#historialEquipos tbody tr').filter(function() {
+            var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5)').text().toLowerCase();
+            return tdText.indexOf(buscarText) !== -1;
+        }).show();
+    });
+    });
+
+</script>
 
 </x-layouts>

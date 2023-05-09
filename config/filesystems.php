@@ -54,6 +54,14 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        'cargaEntrega' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/public/documentos/pdf-entrega'),
+        ],
+        'cargaRetorno' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/public/documentos/pdf-retorno'),
+        ],
 
         's3' => [
             'driver' => 's3',

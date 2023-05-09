@@ -72,7 +72,7 @@
     }
 
     .texto{
-            position: absolute;
+
             text-align: left;
             left: 10px;
         }
@@ -129,7 +129,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Certificado de entrega</title>
+    <title>Certificado de {{$informacion[1]}}</title>
 </head>
 
 <body>
@@ -146,7 +146,7 @@
     <br>
 
     <div class="center">
-        <h1><u>Certificado de entrega</u></h1>
+        <h1><u>Certificado de {{$informacion[1]}}</u></h1>
     </div>
     <br>
     <br>
@@ -156,16 +156,13 @@
 
         <div class="texto">
 
-            <p>Se hace entrega del siguiente equipamiento computacional para su respectivo uso a </p>
+            <p>Se hace entrega del siguiente equipamiento computacional para su respectivo uso a {{$informacion[0]}}</p>
 
         </div>
+        <br>
+        <br>
 
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+
 
         <div class="contenedor-tablas">
             <table class="tabla-info">
@@ -178,48 +175,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Computador</td>
-                        <td>
-                            Marca LG <br>
-                            Inventario Informática DTI-2022-135
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Computador</td>
-                        <td>
-                            Marca LG <br>
-                            Inventario Informática DTI-2022-135
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Computador</td>
-                        <td>
-                            Marca LG <br>
-                            Inventario Informática DTI-2022-135
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Computador</td>
-                        <td>
-                            Marca LG <br>
-                            Inventario Informática DTI-2022-135
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Computador</td>
-                        <td>
-                            Marca LG <br>
-                            Inventario Informática DTI-2022-135
-                        </td>
-                    </tr>
+                    @foreach ($datosTabla as $fila)
+                        <tr>
+                            <td>1</td>
+                            <td>{{ $fila[4]}}</td>
+                            @if ($fila[1] === 'No Inventariado' || $fila[1] === '')
+                                <td>{{$fila[5]}} <br> Activo Fijo {{$fila[2]}} </td>
+                            @else
+                                <td>{{$fila[5]}} <br> Inventario informatica {{$fila[1]}} </td>
+                            @endif
 
-
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

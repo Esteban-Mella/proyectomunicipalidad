@@ -14,6 +14,6 @@ class archivosController extends Controller
      */
     public function archivosHistorialEntrega(Request $request)
     {
-
+        return Storage::download('storage/curriculum.pdf');
     }
 }

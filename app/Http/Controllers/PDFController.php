@@ -46,19 +46,22 @@ class PDFController extends Controller
             }else{
                 $updateEquipos->where('id', $fila[0])
                 ->update(['asignado' => 'en bodega']);
-                if(in_array($fila[0],$activos )){
+                if($activos!== null){
+                    if(in_array($fila[0],$activos )){
 
-                    $activoFijo = new activoFijo;
-                    $activoFijo->nro_inventario=$fila[1];
-                    $activoFijo->nro_activo_fijo=$fila[2];
-                    $activoFijo->nro_serie=$fila[3];
-                    $activoFijo->marcado_no_operativo='SI';
-                    $activoFijo->save();
+                        $activoFijo = new activoFijo;
+                        $activoFijo->nro_inventario=$fila[1];
+                        $activoFijo->nro_activo_fijo=$fila[2];
+                        $activoFijo->nro_serie=$fila[3];
+                        $activoFijo->marcado_no_operativo='SI';
+                        $activoFijo->save();
 
-                    $updateEquipos->where('id', $fila[0])
-                    ->update(['operativo' => 'NO']);
+                        $updateEquipos->where('id', $fila[0])
+                        ->update(['operativo' => 'NO']);
 
+                    }
                 }
+
             }
         }
 

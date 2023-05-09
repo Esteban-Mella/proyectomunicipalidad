@@ -18,6 +18,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{{route('consultaEquipos')}}" aria-current="page">Equipos Disponibles</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('consultaActivoFijo')}}" aria-current="page">Registro Activo fijo</a>
+          </li>
 
       </div>
     </div>

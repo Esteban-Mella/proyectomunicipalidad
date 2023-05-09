@@ -45,7 +45,8 @@
                             <td>{{str_replace(",", " ", $historial->nombre_equipo)}}</td>
                             <td>{{$historial->asignado}}</td>
 
-                            <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " href="#"></a></td>
+                            <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " target="_blank" href="{{URL::asset('/storage/documentos/pdf-retorno/'.$historial->ruta_pdf)}}"></a></td>
+                        </tr>
                         </tr>
 
 
@@ -67,14 +68,15 @@
     $(document).ready(function() {
     $('#busquedaEquipos').on('input', function() {
         var buscarText = $(this).val().toLowerCase();
-        $('#historialEquipos tbody tr').filter(function() {
-            var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5)').text().toLowerCase();
-                return tdText.indexOf(buscarText) === -1;
-            }).hide();
-        $('#historialEquipos tbody tr').filter(function() {
-            var tdText = $(this).find('td:nth-child(1), td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5)').text().toLowerCase();
-            return tdText.indexOf(buscarText) !== -1;
-        }).show();
+        $.ajax({
+                    url: "{{ route('busquedaHistorialRetorno') }}",
+                    type: "post",
+                    dataType: "json",
+                    data: {_token: "{{ csrf_token() }}", text: buscarText},
+                success: function (response) {
+                        $("#historialEquipos").html(response);
+                    }
+            })
     });
     });
 

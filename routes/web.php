@@ -3,6 +3,8 @@
 use App\Http\Controllers\equiposController;
 use App\Http\Controllers\historialEntregaController;
 use App\Http\Controllers\historialRetornos;
+use App\Http\Controllers\descargaPDFController;
+use App\Http\Controllers\consultaActivoFijo;
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,14 +27,18 @@ route::get('/consultaEquipos',[equiposController::class,'equiposDisponibles'])->
 route::get('/historialRetorno',[historialRetornos::class,'obtenerEquiposHistorial'])->name('historialRetorno');
 route::get('/historialEntregas',[historialEntregaController::class,'obtenerEquiposHistorial'])->name('historialEntregas');
 route::get('/entregaEquipos',[equiposController::class,'recuperarEquiposentrega'])->name('entregaEquipos');
+route::get('/consultaActivoFijo',[consultaActivoFijo::class,'consultaActivoFijo'])->name('consultaActivoFijo');
 
 /* controladores de busqueda */
+
 route::post('/equiposBusqueda',[equiposController::class,'equiposBusqueda'])->name('equiposBusqueda');
 route::post('/busquedaPorEstado',[equiposController::class,'busquedaPorEstado'])->name('busquedaPorEstado');
 route::post('/busquedaHistorialEntregas',[historialEntregaController::class,'busquedaHistorialEntregas'])->name('busquedaHistorialEntregas');
-route::post('/busquedaHistorialRetorno',[historialEntregaController::class,'busquedaHistorialRetorno'])->name('busquedaHistorialRetorno');
+route::post('/busquedaHistorialRetorno',[historialRetornos::class,'busquedaHistorialRetorno'])->name('busquedaHistorialRetorno');
 
 route::get('/retornoEquipos',[equiposController::class,'recuperarEquiposretorno'])->name('retornoEquipos');
 
 /* route::get('/pdf','PDFController@PDF')->name('descargarpdf'); uso temporal en face de pruebas */
+
+Route::get('pdf/{file}', [descargaPDFController::class, 'descarga'])->name('descargaPDF');
 

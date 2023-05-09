@@ -22,7 +22,8 @@
                     <td>{{str_replace(",", " ", $historial->nombre_equipo)}}</td>
                     <td>{{$historial->asignado}}</td>
 
-                    <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " href="#"></a></td>
+                    <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " target="_blank" href="{{URL::asset('/storage/documentos/pdf-entrega/'.$historial->ruta_pdf)}}"></a></td>
+                        </tr>
                 </tr>
 
 

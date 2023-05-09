@@ -29,9 +29,6 @@ class PDFController extends Controller
         $pdf = PDF::loadView('pdf.PDFEntregaEquipos', ['datosTabla' => $datosTabla], ['informacion' => $informacion]);
         $updateEquipos = new updateEquipos;
 
-
-
-
         foreach($datosTabla as $fila){
 
             $nroInventario.=','.$fila[1];
@@ -41,11 +38,14 @@ class PDFController extends Controller
             $marca_equipo.=','.$fila[5];
             if ($informacion[1]==='Entrega'){
                 $updateEquipos->where('id', $fila[0])
-                ->update(['asignado' => $informacion[0]]);
+                ->update([
+                    'asignado' => $informacion[0],
+                    'operativo'=> 'SI'
+                ]);
+
             }else{
                 $updateEquipos->where('id', $fila[0])
                 ->update(['asignado' => 'en bodega']);
-
                 if(in_array($fila[0],$activos )){
 
                     $activoFijo = new activoFijo;
@@ -92,10 +92,7 @@ class PDFController extends Controller
 
             $historialrecepcion->save();
 
-
         }
-
-
 
         return $pdf->stream('archivo.pdf');
     }

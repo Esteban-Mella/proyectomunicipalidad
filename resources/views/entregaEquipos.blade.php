@@ -208,11 +208,20 @@
         var asignado = fila.cells[6].innerHTML;
         var operativo = fila.cells[7].innerHTML;
         var fila = enlace.parentNode.parentNode;
-        if(asignado !== 'en bodega'){
+        var mensajeBodega = 'Se encuentra asignado a '+asignado+'.\n';
+        var mensajeNoOperativo = 'No se encuentra como operativo \n';
+        var mensaje = '';
+        if(asignado !== 'en bodega' ){
+            mensaje+=mensajeBodega;
+        }
+        if(operativo==='NO'){
+            mensaje+=mensajeNoOperativo;
+        }
+        if(asignado !== 'en bodega' || operativo==='NO'){
             Swal.fire({
             title: 'Advertencia!',
             icon: 'warning',
-            text: 'El equipo ya se encuentra asignado a '+ asignado+' Desea asignarlo de todas formas?',
+            text: 'El equipo: '+ mensaje+' Desea asignarlo de todas formas?',
             showDenyButton: true,
             confirmButtonText: 'Reasignar',
             denyButtonText: `Cancelar`,

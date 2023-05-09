@@ -35,6 +35,7 @@ route::post('/equiposBusqueda',[equiposController::class,'equiposBusqueda'])->na
 route::post('/busquedaPorEstado',[equiposController::class,'busquedaPorEstado'])->name('busquedaPorEstado');
 route::post('/busquedaHistorialEntregas',[historialEntregaController::class,'busquedaHistorialEntregas'])->name('busquedaHistorialEntregas');
 route::post('/busquedaHistorialRetorno',[historialRetornos::class,'busquedaHistorialRetorno'])->name('busquedaHistorialRetorno');
+route::post('/historialActivoFijo',[consultaActivoFijo::class,'historialActivoFijo'])->name('historialActivoFijo');
 
 route::get('/retornoEquipos',[equiposController::class,'recuperarEquiposretorno'])->name('retornoEquipos');
 

@@ -183,7 +183,7 @@
         }
     });
 
-    function obtenerDatos(enlace) {
+    function obtenerDatos(enlace) {/* obtencion de datos y verificacion de filtros */
         event.preventDefault();
         var usuarioPrestamo = $('#usuarioSelected option:selected').text();
         var fila = enlace.parentNode.parentNode;
@@ -196,6 +196,7 @@
         var asignado = fila.cells[6].innerHTML;
         var operativo = fila.cells[7].innerHTML;
         var fila = enlace.parentNode.parentNode;
+
         if(asignado === 'en bodega' || asignado !== usuarioPrestamo){
             Swal.fire({
             title: 'Advertencia!',

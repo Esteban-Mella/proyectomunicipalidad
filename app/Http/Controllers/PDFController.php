@@ -33,9 +33,13 @@ class PDFController extends Controller
             $nro_serie.=','.$fila[3];
             $nombre_equipo.=','.$fila[4];
             $marca_equipo.=','.$fila[5];
-
-            $updateEquipos->where('id', $fila[0])
-            ->update(['asignado' => $informacion[0]]);
+            if ($informacion[1]==='Entrega'){
+                $updateEquipos->where('id', $fila[0])
+                ->update(['asignado' => $informacion[0]]);
+            }else{
+                $updateEquipos->where('id', $fila[0])
+                ->update(['asignado' => 'en bodega']);
+            }
         }
 
         if ($informacion[1]==='Entrega') {

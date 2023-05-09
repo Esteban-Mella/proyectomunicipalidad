@@ -15,7 +15,7 @@ class historialRetornos extends Controller
      */
     public function obtenerEquiposHistorial(Request $request)
     {
-        $historialRetorno = DB::table('historialrecepcion')->orderBy('id', 'desc')->paginate(5);
+        $historialRetorno = DB::table('historialrecepcion')->orderBy('id', 'desc')->paginate(10);
 
         return view('historialRetorno', ['historialRetorno'=>$historialRetorno]);
     }

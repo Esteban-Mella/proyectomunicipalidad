@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\historialentregas;
 use App\historialrecepcion;
+use App\updateEquipos;
 
 
 class PDFController extends Controller
@@ -20,17 +21,21 @@ class PDFController extends Controller
         $nro_serie = '';
         $nombre_equipo = '';
         $marca_equipo= '';
-        $rutapdf='';
+
 
         $nombreArchivo ='pdf-'.$informacion[1].'-'.date("d M j G-i-s T Y").'.pdf';
         $pdf = PDF::loadView('pdf.PDFEntregaEquipos', ['datosTabla' => $datosTabla], ['informacion' => $informacion]);
-
+        $updateEquipos = new updateEquipos;
         foreach($datosTabla as $fila){
+
             $nroInventario.=','.$fila[1];
             $nro_activo_fijo.=','.$fila[2];
             $nro_serie.=','.$fila[3];
             $nombre_equipo.=','.$fila[4];
             $marca_equipo.=','.$fila[5];
+
+            $updateEquipos->where('id', $fila[0])
+            ->update(['asignado' => $informacion[0]]);
         }
 
         if ($informacion[1]==='Entrega') {
@@ -50,6 +55,7 @@ class PDFController extends Controller
         } else {
 
             Storage::disk('cargaRetorno')->put($nombreArchivo, $pdf->output());
+
             $historialrecepcion = new historialrecepcion;
 
             $historialrecepcion->nro_inventario = $nroInventario;

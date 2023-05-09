@@ -63,7 +63,9 @@
                             <th scope="col">Marca Equipo</th>
                             <th scope="col">Asignado</th>
                             <th scope="col">operativo</th>
+                            <th scope="col"> Indica NO operativo</th>
                             <th scope="col">Acciones</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -91,6 +93,7 @@
                         <th scope="col">Asignado</th>
                         <th scope="col">operativo</th>
                         <th scope="col">Acciones</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -220,7 +223,9 @@
                         '<td>'+marcaEquipo+'</td>'+
                         '<td>'+asignado+'</td>'+
                         '<td>'+operativo+ '</td>'+
+                        '<td><input class="form-check-input h1" type="checkbox" id="checkoxActivoFijo" value="'+id+'" aria-label="..."></td>'+
                         '<td><a onclick="eliminarFila(this)" class="bi bi-file-earmark-x-fill h1 text-danger" href="#"></a></td>'+
+
                     '</tr>'
                 );
 
@@ -262,6 +267,11 @@
 
     $('#btn-enviar-datos').click(function() {
 
+    var marcadoActivoFijo = document.querySelectorAll('#tabla-datos input[type="checkbox"]:checked');
+    var valoresMarcadoActivoFijo = [];
+    for (var i = 0; i < marcadoActivoFijo.length; i++) {
+        valoresMarcadoActivoFijo.push(marcadoActivoFijo[i].value);
+    }
     var usuarioPrestamo = $('#usuarioSelected option:selected').text();
     var tipoForm='Retorno';
     var informacion=[usuarioPrestamo,tipoForm];
@@ -282,7 +292,8 @@
             data: {
                 "_token": "{{ csrf_token() }}",
                 "datos": datosTabla,
-                "informacion": informacion
+                "informacion": informacion,
+                "activos": valoresMarcadoActivoFijo,
             },
             xhrFields: {
             responseType: 'blob'
@@ -319,6 +330,7 @@
 });
 
 $('#btn-preview').click(function() {
+
     var usuarioPrestamo = $('#usuarioSelected option:selected').text();
     var tipoForm='Entrega';
     var informacion=[usuarioPrestamo, tipoForm];
@@ -338,7 +350,9 @@ $('#btn-preview').click(function() {
             data: {
                 "_token": "{{ csrf_token() }}",
                 "datos": datosTabla,
-                "informacion": informacion
+                "informacion": informacion,
+
+
             },
             xhrFields: {
             responseType: 'blob'
@@ -350,6 +364,7 @@ $('#btn-preview').click(function() {
                 link.href = window.URL.createObjectURL(blob);
                 link.setAttribute('target', '_blank');
                 link.click();
+
 
             }
         });

@@ -1,5 +1,5 @@
 <x-layouts
-    title="Entrega Equipos"
+    title="Retorno Equipos"
 >
 
 {{-- inicio barra de busqueda --}}
@@ -63,7 +63,9 @@
                             <th scope="col">Marca Equipo</th>
                             <th scope="col">Asignado</th>
                             <th scope="col">operativo</th>
+                            <th scope="col"> Indica NO operativo</th>
                             <th scope="col">Acciones</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -91,6 +93,7 @@
                         <th scope="col">Asignado</th>
                         <th scope="col">operativo</th>
                         <th scope="col">Acciones</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -183,8 +186,9 @@
         }
     });
 
-    function obtenerDatos(enlace) {
+    function obtenerDatos(enlace) {/* obtencion de datos y verificacion de filtros */
         event.preventDefault();
+        var usuarioPrestamo = $('#usuarioSelected option:selected').text();
         var fila = enlace.parentNode.parentNode;
         var id = fila.cells[0].innerHTML;
         var nroInventario = fila.cells[1].innerHTML;
@@ -194,6 +198,45 @@
         var marcaEquipo = fila.cells[5].innerHTML;
         var asignado = fila.cells[6].innerHTML;
         var operativo = fila.cells[7].innerHTML;
+        var fila = enlace.parentNode.parentNode;
+
+        if(asignado === 'en bodega' || asignado !== usuarioPrestamo){
+            Swal.fire({
+            title: 'Advertencia!',
+            icon: 'warning',
+            text: asignado =='en bodega' ? 'El equipo se encuentra'+ asignado+' Desea ingresarlo de todas formas?':'El equipo se encuentra a '+ asignado+' pero retorna '+usuarioPrestamo+' Desea ingresarlo de todas formas?',
+            showDenyButton: true,
+            confirmButtonText: asignado =='en bodega' ? 'Reasignar': 'Entregar',
+            denyButtonText: `Cancelar`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('Autorizado!', '', 'success')
+                fila.parentNode.removeChild(fila);
+
+                $('#tabla-datos tbody').append(
+                    '<tr>'+
+                        '<td>'+id+'</td>'+
+                        '<td>'+nroInventario+'</td>'+
+                        '<td>'+nroActivoFijo+'</td>'+
+                        '<td>'+nroSerie+'</td>'+
+                        '<td>'+nombreEquipo+'</td>'+
+                        '<td>'+marcaEquipo+'</td>'+
+                        '<td>'+asignado+'</td>'+
+                        '<td>'+operativo+ '</td>'+
+                        '<td><input class="form-check-input h1" type="checkbox" id="checkoxActivoFijo" value="'+id+'" aria-label="..."></td>'+
+                        '<td><a onclick="eliminarFila(this)" class="bi bi-file-earmark-x-fill h1 text-danger" href="#"></a></td>'+
+
+                    '</tr>'
+                );
+
+            } else if (result.isDenied) {
+                Swal.fire('No autorizado', '', 'info')
+            }
+            })
+
+        }else{
+
+            fila.parentNode.removeChild(fila);
 
         $('#tabla-datos tbody').append(
             '<tr>'+
@@ -208,6 +251,10 @@
                 '<td><a onclick="eliminarFila(this)" class="bi bi-file-earmark-x-fill h1 text-danger" href="#"></a></td>'+
             '</tr>'
         );
+
+        }
+
+
     }
 
     /* funcionalidad de boton para quitar elementos de la tabla de prestamos */
@@ -220,6 +267,11 @@
 
     $('#btn-enviar-datos').click(function() {
 
+    var marcadoActivoFijo = document.querySelectorAll('#tabla-datos input[type="checkbox"]:checked');
+    var valoresMarcadoActivoFijo = [];
+    for (var i = 0; i < marcadoActivoFijo.length; i++) {
+        valoresMarcadoActivoFijo.push(marcadoActivoFijo[i].value);
+    }
     var usuarioPrestamo = $('#usuarioSelected option:selected').text();
     var tipoForm='Retorno';
     var informacion=[usuarioPrestamo,tipoForm];
@@ -240,7 +292,8 @@
             data: {
                 "_token": "{{ csrf_token() }}",
                 "datos": datosTabla,
-                "informacion": informacion
+                "informacion": informacion,
+                "activos": valoresMarcadoActivoFijo,
             },
             xhrFields: {
             responseType: 'blob'
@@ -256,8 +309,13 @@
                     title: 'Formulario',
                     text: 'Formulario Generado correctamente!',
                     icon: 'success',
+                    confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Aceptar'
-                });
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                    });
             }
         });
     }else{
@@ -272,6 +330,7 @@
 });
 
 $('#btn-preview').click(function() {
+
     var usuarioPrestamo = $('#usuarioSelected option:selected').text();
     var tipoForm='Entrega';
     var informacion=[usuarioPrestamo, tipoForm];
@@ -291,7 +350,9 @@ $('#btn-preview').click(function() {
             data: {
                 "_token": "{{ csrf_token() }}",
                 "datos": datosTabla,
-                "informacion": informacion
+                "informacion": informacion,
+
+
             },
             xhrFields: {
             responseType: 'blob'
@@ -303,6 +364,7 @@ $('#btn-preview').click(function() {
                 link.href = window.URL.createObjectURL(blob);
                 link.setAttribute('target', '_blank');
                 link.click();
+
 
             }
         });

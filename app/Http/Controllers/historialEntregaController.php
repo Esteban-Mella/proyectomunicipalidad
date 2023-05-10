@@ -29,7 +29,8 @@ class historialEntregaController extends Controller
         ->orwhere('asignado', 'LIKE', '%'.$busqueda.'%')
         ->orwhere('nro_serie', 'LIKE', '%'.$busqueda.'%')->orderBy('id', 'desc')->paginate(10);
 
-        $view = view('viewResultadoBusquedaHistorial', compact('data'))->render();
+        $view = view('viewResultadoBusquedaHistorialEntrega', compact('data'))->render();
         return response()->json($view);
     }
+
 }

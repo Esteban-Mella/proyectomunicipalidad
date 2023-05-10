@@ -16,17 +16,15 @@
         @foreach ($data as $historial)
                 <tr style="max-height: 100px;">
                     <th scope="row">{{$historial->id}}</th>
-                    <td>{{str_replace(",", " ", $historial->nro_inventario)}}</td>
-                    <td>{{str_replace(",", " ", $historial->nro_activo_fijo)}}</td>
-                    <td>{{str_replace(",", " ", $historial->nro_serie)}}</td>
-                    <td>{{str_replace(",", " ", $historial->nombre_equipo)}}</td>
+                    <td>{{ substr(str_replace(",", " ", $historial->nro_inventario),0,15)."..."}}</td>
+                    <td>{{ substr(str_replace(",", " ", $historial->nro_activo_fijo),0,15)."..."}}</td>
+                    <td>{{ substr(str_replace(",", " ", $historial->nro_serie),0,15)."..."}}</td>
+                    <td>{{ substr(str_replace(",", " ", $historial->nombre_equipo),0,15)."..."}}</td>
                     <td>{{$historial->asignado}}</td>
 
                     <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " target="_blank" href="{{URL::asset('/storage/documentos/pdf-entrega/'.$historial->ruta_pdf)}}"></a></td>
                         </tr>
                 </tr>
-
-
                 @endforeach
     </tbody>
 </table>

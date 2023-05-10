@@ -15,7 +15,7 @@
     <tbody>
         @foreach ($data as $historial)
                 <tr style="max-height: 100px;">
-                    <th scope="row">{{$historial->id}}</th>
+                    <td scope="row">{{$historial->id}}</td>
                     <td>{{$historial->nro_serie}}</td>
                     <td>{{$historial->nro_activo_fijo}}</td>
                     <td>{{$historial->nro_inventario}}</td>

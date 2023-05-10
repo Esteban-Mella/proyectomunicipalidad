@@ -248,7 +248,8 @@
                 '<td>'+marcaEquipo+'</td>'+
                 '<td>'+asignado+'</td>'+
                 '<td>'+operativo+ '</td>'+
-                '<td><a onclick="eliminarFila(this)" class="bi bi-file-earmark-x-fill h1 text-danger" href="#"></a></td>'+
+                '<td><input class="form-check-input h1" type="checkbox" id="checkoxActivoFijo" value="'+id+'" aria-label="..."></td>'+
+                 '<td><a onclick="eliminarFila(this)" class="bi bi-file-earmark-x-fill h1 text-danger" href="#"></a></td>'+
             '</tr>'
         );
 

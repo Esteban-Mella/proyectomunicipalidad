@@ -1,3 +1,4 @@
+{{-- se utiliza para retornar las tablas de busqueda e ingresarlas en la tabla original de la solicitud como una vista --}}
 <table id="historialEquipos" class="table table-striped border rounded-4">
 
     <thead>

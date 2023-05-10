@@ -1,5 +1,5 @@
 <x-layouts
-    title="Entrega Equipos"
+    title="Retorno Equipos"
 >
 
 {{-- inicio barra de busqueda --}}

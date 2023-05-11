@@ -22,7 +22,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Intranet- {{$title ?? 'recursos'}} </title>
+    <title>Intranet :: {{$title ?? 'recursos'}} </title>
 
 </head>
 

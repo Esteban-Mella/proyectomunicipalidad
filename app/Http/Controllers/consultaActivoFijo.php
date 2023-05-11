@@ -34,4 +34,6 @@ class consultaActivoFijo extends Controller
     }
 
 
+
+
 }

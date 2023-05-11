@@ -1,5 +1,5 @@
 <x-layouts
-    title="Historial de Retorno Equipos"
+    title="Historial Activo Fijo Equipos"
 >
 
 {{-- inicio  de busqueda --}}

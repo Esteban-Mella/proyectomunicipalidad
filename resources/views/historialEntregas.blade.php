@@ -69,18 +69,18 @@
 <script>
     /* busqueda de equipos en la tabla */
     $(document).ready(function() {
-    $('#busquedaEquipos').on('input', function() {
-        var buscarText = $(this).val().toLowerCase();
-        $.ajax({
+        $('#busquedaEquipos').on('input', function() {
+            var buscarText = $(this).val().toLowerCase();
+            $.ajax({
                     url: "{{ route('busquedaHistorialEntregas') }}",
                     type: "post",
                     dataType: "json",
                     data: {_token: "{{ csrf_token() }}", text: buscarText},
                 success: function (response) {
-                        $("#historialEquipos").html(response);
-                    }
+                    $("#historialEquipos").html(response);
+                }
             })
-    });
+        });
     });
 
 </script>

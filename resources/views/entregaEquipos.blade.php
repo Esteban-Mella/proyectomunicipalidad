@@ -49,7 +49,7 @@
             <div class="col">
                 {{-- tabla para generar lista recuperando equipos que seran entregados   --}}
                 <form action="" method="POST">
-                    @csrf {{-- importante añadir esto para evitar errores de ataques csrf --}}
+                    @csrf {{-- importante añadir esto para evitar errores por csrf --}}
 
                     <h3 name="title" class="mb-3 mt-3">Equipos para asignar</h3>
 
@@ -108,7 +108,7 @@
                             <td>{{$equipo->marca}}</td>
                             <td>{{$equipo->asignado}}</td>
                             <td>{{$equipo->operativo}}</td>
-                            <td>{{-- <button type="button" class="btn btn-success">Añadir</button> --}}
+                            <td>
                                 <a id="agregar-dato" class="bi bi-file-earmark-plus-fill h1 text-success enviar-dato" href="" onclick="obtenerDatos(this)"></a>
                             </td>
                         </tr>
@@ -126,6 +126,8 @@
             </div>
         </div>
     </div>
+
+    {{-- Botones para formularios --}}
 
     <div class="d-flex ml-auto justify-content-end pt-3">
 
@@ -153,10 +155,10 @@
     $('#usuarioSelected option').each(function() {
         var texto = $(this).text().toLowerCase();
         if (texto.indexOf(input) !== -1) {
-        $(this).show();
-        $(this).prop('selected', true);
+            $(this).show();
+            $(this).prop('selected', true);
         } else {
-        $(this).hide();
+            $(this).hide();
         }
     });
 
@@ -343,7 +345,7 @@
 
 $('#btn-preview').click(function() {
     var usuarioPrestamo = $('#usuarioSelected option:selected').text();
-    var tipoForm='Entrega';
+    var tipoForm='Entrega "NO VALIDO" ';
     var informacion=[usuarioPrestamo, tipoForm];
     var datosTabla = [];
     $('#tabla-datos tbody tr').each(function() {
@@ -386,10 +388,6 @@ $('#btn-preview').click(function() {
                 });
     }
 });
-
-
 </script>
-
-
 
 </x-layouts>

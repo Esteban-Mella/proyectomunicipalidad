@@ -47,11 +47,7 @@
 
                             <td class="d-flex justify-content-center"><a class="bi bi-cloud-arrow-down-fill h1 text-success " target="_blank" href="{{URL::asset('/storage/documentos/pdf-retorno/'.$historial->ruta_pdf)}}"></a></td>
                         </tr>
-                        </tr>
-
-
-                        @endforeach
-
+                    @endforeach
             </tbody>
         </table>
         <div>

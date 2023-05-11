@@ -39,6 +39,7 @@ class equiposController extends Controller
         $busqueda = $request->text;
         $data = DB::table('equipos')->where('nro_inventario', 'LIKE', '%'.$busqueda.'%')
         ->orwhere('nro_activofijo', 'LIKE', '%'.$busqueda.'%')
+        ->orwhere('asignado', 'LIKE', '%'.$busqueda.'%')
         ->orwhere('nro_serie', 'LIKE', '%'.$busqueda.'%')->paginate(10);
         $view = view('viewResultadobusqueda', compact('data'))->render();
         return response()->json($view);
@@ -55,6 +56,8 @@ class equiposController extends Controller
             ->where(function ($query) use ($busqueda) {
                $query->where('nro_inventario', 'LIKE', '%'.$busqueda.'%')
                      ->orWhere('nro_serie', 'LIKE', '%'.$busqueda.'%')
+                     ->orWhere('tipo_equipo', 'LIKE', '%'.$busqueda.'%')
+                     ->orWhere('asignado', 'LIKE', '%'.$busqueda.'%')
                      ->orWhere('nro_activofijo', 'LIKE', '%'.$busqueda.'%');
            })->paginate(10);
            $view = view('viewConsultaEquipos', compact('data'))->render();
@@ -63,6 +66,8 @@ class equiposController extends Controller
             $data = DB::table('equipos')->where('asignado', '<>', 'en bodega')
             ->where(function ($query) use ($busqueda) {
                $query->where('nro_inventario', 'LIKE', '%'.$busqueda.'%')
+                     ->orWhere('asignado', 'LIKE', '%'.$busqueda.'%')
+                     ->orWhere('tipo_equipo', 'LIKE', '%'.$busqueda.'%')
                      ->orWhere('nro_serie', 'LIKE', '%'.$busqueda.'%')
                      ->orWhere('nro_activofijo', 'LIKE', '%'.$busqueda.'%');
            })->paginate(10);

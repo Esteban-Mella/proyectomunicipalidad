@@ -156,7 +156,14 @@
 
         <div class="texto">
 
-            <p>Se hace entrega del siguiente equipamiento computacional para su respectivo uso a {{$informacion[0]}}</p>
+            @if (str_contains($informacion[1], 'Entrega'))
+                <p>Se hace entrega del siguiente equipamiento computacional para su respectivo uso a {{$informacion[0]}}</p>
+
+            @else
+                <p>Se hace el retorno del siguiente equipamiento computacional por parte de {{$informacion[0]}}</p>
+
+            @endif
+
 
         </div>
         <br>
@@ -179,10 +186,24 @@
                         <tr>
                             <td>1</td>
                             <td>{{ $fila[4]}}</td>
-                            @if ($fila[1] === 'No Inventariado' || $fila[1] === '')
-                                <td>{{$fila[5]}} <br> Activo Fijo {{$fila[2]}} </td>
+
+                            {{-- fila[1] nro de inventario, fila[2] nro de activo fijo, fila[3] nro serie --}}
+                            @if ($fila[1] === 'No Inventariado' || $fila[1] === ' ' || $fila[1]=== null)
+
+                                @if ($fila[2]=== 'No Inventariado' || $fila[2] === ' ' || $fila[2] === null )
+
+                                    <td>{{$fila[5]}} <br> nro de serie {{$fila[3]}} </td>
+
+                                @else
+
+                                    <td>{{$fila[5]}} <br> Activo Fijo {{$fila[2]}} </td>
+
+                                @endif
+
                             @else
+
                                 <td>{{$fila[5]}} <br> Inventario informatica {{$fila[1]}} </td>
+
                             @endif
 
                         </tr>

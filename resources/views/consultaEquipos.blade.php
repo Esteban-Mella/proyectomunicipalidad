@@ -15,7 +15,6 @@
             <option value="0">Todos</option>
             <option value="1">Equipos Disponibles</option>
             <option value="2">Equipos no Disponibles</option>
-
           </select>
 {{-- fin barra de busqueda --}}
 

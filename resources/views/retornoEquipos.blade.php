@@ -23,7 +23,7 @@
                 <select id="usuarioSelected" class="form-select mb-3">
                     <option value="">Busqueda de personal</option>
                     @foreach ($usuarios as $usuario )
-                    <option value="{{$usuario->id}}">{{$usuario->nombre}} {{$usuario->apellido}}</option>
+                        <option value="{{$usuario->id}}">{{$usuario->nombre}} {{$usuario->apellido}}</option>
                     @endforeach
                   </select>
             </div>
@@ -45,28 +45,27 @@
 
         <div class="row border rounded-3">
             <div class="col">
-                {{-- tabla para generar lista recuperando equipos que seran entregados   --}}
+                {{-- tabla para generar lista recuperando equipos que seran retornados   --}}
                 <form action="" method="POST">
-                    @csrf {{-- importante añadir esto para evitar errores de ataques csrf --}}
+                    @csrf
 
                     <h3 name="title" class="mb-3 mt-3">Equipos para asignar</h3>
 
                     <table id="tabla-datos" class="table table-striped border rounded-3">
                         @csrf
                         <thead>
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">N° de Inventario</th>
-                            <th scope="col">N° Activo fijo</th>
-                            <th scope="col">N° serie</th>
-                            <th scope="col">Nombre Equipo</th>
-                            <th scope="col">Marca Equipo</th>
-                            <th scope="col">Asignado</th>
-                            <th scope="col">operativo</th>
-                            <th scope="col"> Indica NO operativo</th>
-                            <th scope="col">Acciones</th>
-
-                        </tr>
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">N° de Inventario</th>
+                                <th scope="col">N° Activo fijo</th>
+                                <th scope="col">N° serie</th>
+                                <th scope="col">Nombre Equipo</th>
+                                <th scope="col">Marca Equipo</th>
+                                <th scope="col">Asignado</th>
+                                <th scope="col">operativo</th>
+                                <th scope="col"> Indica NO operativo</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
                         </thead>
                         <tbody>
 
@@ -134,6 +133,8 @@
 
 </section>
 
+{{-- Area de scripts para funcionalidad de pagina --}}
+
 <script>
     $(document).ready(function() {
     $('#busquedaPersonal').on('input', function() {
@@ -143,10 +144,10 @@
         $('#usuarioSelected option').each(function() {
             var texto = $(this).text().toLowerCase();
             if (texto.indexOf(input) !== -1) {
-            $(this).show();
-            $(this).prop('selected', true);
+                $(this).show();
+                $(this).prop('selected', true);
             } else {
-            $(this).hide();
+                $(this).hide();
             }
         });
 
@@ -177,7 +178,6 @@
 
 </script>
 
-{{-- Area de scripts para funcionalidad de pagina --}}
 
 <script>
     $.ajaxSetup({/* solucion error 419 controlador a form por ajax */
@@ -333,7 +333,7 @@
 $('#btn-preview').click(function() {
 
     var usuarioPrestamo = $('#usuarioSelected option:selected').text();
-    var tipoForm='Entrega';
+    var tipoForm='Retorno "NO VALIDO"';
     var informacion=[usuarioPrestamo, tipoForm];
     var datosTabla = [];
     $('#tabla-datos tbody tr').each(function() {

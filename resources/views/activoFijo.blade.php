@@ -2,7 +2,7 @@
     title="Historial de Retorno Equipos"
 >
 
-{{-- inicio barra de busqueda --}}
+{{-- inicio  de busqueda --}}
 <section class="mx-3 mb-3 p-3 border rounded-3">
     <a  href="{{route('retornoEquipos')}}">Regresar</a>
 
@@ -18,7 +18,6 @@
             </div>
         </div>
     </div>
-
 
      {{-- tabla para buscar asignaciones Recordar el orden por fecha --}}
 

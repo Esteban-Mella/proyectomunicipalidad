@@ -192,17 +192,17 @@
 
                                 @if ($fila[2]=== 'No Inventariado' || $fila[2] === ' ' || $fila[2] === null )
 
-                                    <td>{{$fila[5]}} <br> nro de serie {{$fila[3]}} </td>
+                                    <td>Marca {{$fila[5]}} <br> nro de serie {{$fila[3]}} </td>
 
                                 @else
 
-                                    <td>{{$fila[5]}} <br> Activo Fijo {{$fila[2]}} </td>
+                                    <td>Marca {{$fila[5]}} <br> Activo Fijo {{$fila[2]}} </td>
 
                                 @endif
 
                             @else
 
-                                <td>{{$fila[5]}} <br> Inventario informatica {{$fila[1]}} </td>
+                                <td>Marca {{$fila[5]}} <br> Inventario informatica {{$fila[1]}} </td>
 
                             @endif
 

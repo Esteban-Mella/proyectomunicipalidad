@@ -40,6 +40,7 @@ class equiposController extends Controller
         $data = DB::table('equipos')->where('nro_inventario', 'LIKE', '%'.$busqueda.'%')
         ->orwhere('nro_activofijo', 'LIKE', '%'.$busqueda.'%')
         ->orwhere('asignado', 'LIKE', '%'.$busqueda.'%')
+        ->orwhere('tipo_equipo', 'LIKE', '%'.$busqueda.'%')
         ->orwhere('nro_serie', 'LIKE', '%'.$busqueda.'%')->paginate(10);
         $view = view('viewResultadobusqueda', compact('data'))->render();
         return response()->json($view);
